@@ -8,4 +8,35 @@ class ThemeConstants {
   static const Color clrBlueGrey = Colors.blueGrey;
   static const Color clrGrey = Colors.grey;
   static const Color clrBrown = Colors.brown;
+
+
+  static const Color clrBlack100 = Color(0xFF0C131A);
+  static const Color clrDarkBlueGrey = Color(0xFF0E1720);
+  static const Color clrLightBlueGrey = Color(0xFF1A2938);
+  static const Color clrAmberYellow = Color(0xFFE7A12C);
+
+
 }
+
+
+
+ThemeData lightTheme = ThemeData(
+  appBarTheme: const AppBarTheme(
+    backgroundColor: ThemeConstants.clrDarkBlueGrey,
+    titleTextStyle: TextStyle(
+      color: ThemeConstants.clrWhite,
+      fontSize: 20
+    ),
+  ),
+  primaryColor: ThemeConstants.clrLightBlueGrey,
+  primaryColorDark: ThemeConstants.clrDarkBlueGrey,
+  useMaterial3: true,
+  scaffoldBackgroundColor: ThemeConstants.clrBlack100,
+
+);
+
+
+
+
+
+

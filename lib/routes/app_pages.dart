@@ -1,5 +1,5 @@
 import 'package:get/get.dart';
-import 'package:just_movie/features/home/presentaion/pages/home_screen.dart';
+import 'package:just_movie/features/home/presentation/pages/home_screen.dart';
 import 'package:just_movie/routes/app_routes.dart';
 
 class AppPages {

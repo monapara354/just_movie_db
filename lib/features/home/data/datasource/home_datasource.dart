@@ -1,37 +1,57 @@
-
 import 'package:dio/dio.dart';
+import 'package:just_movie/core/constants/string_constants.dart';
 import 'package:just_movie/core/domain/error/failure.dart';
 import 'package:just_movie/features/home/data/model/movie_info_model.dart';
+import 'package:just_movie/features/home/domain/usecases/get_all_movie.dart';
+import 'package:just_movie/features/home/domain/usecases/get_tranding.dart';
 
-abstract class HomeDataSource{
-  Future<List<MovieInfoModel>> getNowPlayingMovie();
+abstract class HomeDataSource {
+  Future<List<MovieInfoModel>> getMovieList(GetMovieListParams params);
+  Future<List<MovieInfoModel>> getTrendingList(GetTrendingListParams params);
 }
 
-class HomeDataSourceImpl extends HomeDataSource{
-
-  final String baseUrl = 'https://api.themoviedb.org/3';
-  final String apiKey = 'c37e879922024e7b447766addfb964a2';
+class HomeDataSourceImpl extends HomeDataSource {
   final dio = Dio();
 
   @override
-  Future<List<MovieInfoModel>> getNowPlayingMovie()async {
-   try{
-     List<MovieInfoModel> movieList = [];
+  Future<List<MovieInfoModel>> getMovieList(GetMovieListParams params) async {
+    try {
+      List<MovieInfoModel> movieList = [];
 
-     final url = '$baseUrl/movie/now_playing?api_key=$apiKey';
-     final response = await dio.get(url);
-     final data = response.data;
+      final url = '${EndPoints.baseUrl}/movie/${params.type}?api_key=${EndPoints.apiKey}&region=IN';
+      final response = await dio.get(url);
+      final data = response.data;
 
-     if (response.statusCode == 200) {
-        for(var d in data['results']){
+      if (response.statusCode == 200) {
+        for (var d in data['results']) {
           final movie = MovieInfoModel.fromJson(d);
           movieList.add(movie);
         }
-     }
-     return movieList;
-   }catch(e){
-    throw ServerFailure(errorMessage: e.toString());
-   }
+      }
+      return movieList;
+    } catch (e) {
+      throw ServerFailure(errorMessage: e.toString());
+    }
   }
 
+  @override
+  Future<List<MovieInfoModel>> getTrendingList(GetTrendingListParams params) async {
+    try {
+      List<MovieInfoModel> movieList = [];
+
+      final url = '${EndPoints.baseUrl}/trending/${params.type}/day?api_key=${EndPoints.apiKey}';
+      final response = await dio.get(url);
+      final data = response.data;
+
+      if (response.statusCode == 200) {
+        for (var d in data['results']) {
+          final movie = MovieInfoModel.fromJson(d);
+          movieList.add(movie);
+        }
+      }
+      return movieList;
+    } catch (e) {
+      throw ServerFailure(errorMessage: e.toString());
+    }
+  }
 }

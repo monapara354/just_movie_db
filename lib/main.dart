@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:just_movie/core/constants/string_constants.dart';
+import 'package:just_movie/core/constants/theme_constants.dart';
 import 'package:just_movie/injection/injection_container.dart';
 import 'package:just_movie/routes/app_pages.dart';
 import 'package:just_movie/routes/app_routes.dart';
@@ -20,7 +21,8 @@ class MyApp extends StatelessWidget {
       builder:(context, orientation, deviceType)  {
         return GetMaterialApp(
           title: StringConstants.strAppName,
-          // theme: ,
+          debugShowCheckedModeBanner: false,
+          theme: lightTheme,
           getPages: AppPages.pageList,
           initialRoute: AppRoutes.initialRoute,
         );
