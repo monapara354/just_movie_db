@@ -2,62 +2,71 @@ import 'package:just_movie/features/movie_details/domain/entities/movie_detail.d
 
 class MovieDetailModel extends MovieDetail {
   MovieDetailModel(
-      {required super.adult,
-      required super.backdropPath,
-      required super.belongsToCollection,
-      required super.budget,
-      required super.genres,
-      required super.homepage,
-      required super.id,
-      required super.imdbId,
-      required super.originCountry,
-      required super.originalLanguage,
-      required super.originalTitle,
-      required super.overview,
-      required super.popularity,
-      required super.posterPath,
-      required super.productionCompanies,
-      required super.productionCountries,
-      required super.releaseDate,
-      required super.revenue,
-      required super.runtime,
-      required super.spokenLanguages,
-      required super.status,
-      required super.tagline,
-      required super.title,
-      required super.video,
-      required super.voteAverage,
-      required super.voteCount});
+      {super.adult,
+      super.backdropPath,
+      super.belongsToCollection,
+      super.budget,
+      super.genres,
+      super.homepage,
+      super.id,
+      super.imdbId,
+      super.originCountry,
+      super.originalLanguage,
+      super.originalTitle,
+      super.overview,
+      super.popularity,
+      super.posterPath,
+      super.productionCompanies,
+      super.productionCountries,
+      super.releaseDate,
+      super.revenue,
+      super.runtime,
+      super.spokenLanguages,
+      super.status,
+      super.tagline,
+      super.title,
+      super.video,
+      super.voteAverage,
+      super.voteCount});
 
   factory MovieDetailModel.fromJson(Map<String, dynamic> json) =>
       MovieDetailModel(
         adult: json["adult"],
         backdropPath: json["backdrop_path"],
-        belongsToCollection:
-            BelongsToCollectionModel.fromJson(json["belongs_to_collection"]),
+        belongsToCollection: json["belongs_to_collection"] != null
+            ? BelongsToCollectionModel.fromJson(json["belongs_to_collection"])
+            : null,
         budget: json["budget"],
-        genres: List<GenreModel>.from(
-            json["genres"].map((x) => GenreModel.fromJson(x))),
+        genres: json["genres"] != null
+            ? List<GenreModel>.from(
+                json["genres"].map((x) => GenreModel.fromJson(x)))
+            : null,
         homepage: json["homepage"],
         id: json["id"],
         imdbId: json["imdb_id"],
-        originCountry: List<String>.from(json["origin_country"].map((x) => x)),
+        originCountry: json["origin_country"] != null
+            ? List<String>.from(json["origin_country"].map((x) => x))
+            : null,
         originalLanguage: json["original_language"],
         originalTitle: json["original_title"],
         overview: json["overview"],
         popularity: json["popularity"]?.toDouble(),
         posterPath: json["poster_path"],
-        productionCompanies: List<ProductionCompanyModel>.from(
-            json["production_companies"]
-                .map((x) => ProductionCompanyModel.fromJson(x))),
-        productionCountries: List<ProductionCountryModel>.from(
-            json["production_countries"]
-                .map((x) => ProductionCountryModel.fromJson(x))),
+        productionCompanies: json["production_companies"] != null
+            ? List<ProductionCompanyModel>.from(json["production_companies"]
+                .map((x) => ProductionCompanyModel.fromJson(x)))
+            : null,
+        productionCountries: json["production_countries"] != null
+            ? List<ProductionCountryModel>.from(json["production_countries"]
+                .map((x) => ProductionCountryModel.fromJson(x)))
+            : null,
         releaseDate: DateTime.parse(json["release_date"]),
         revenue: json["revenue"],
         runtime: json["runtime"],
-        spokenLanguages: List<SpokenLanguageModel>.from(json["spoken_languages"]
-            .map((x) => SpokenLanguageModel.fromJson(x))),
+        spokenLanguages: json["spoken_languages"] != null
+            ? List<SpokenLanguageModel>.from(json["spoken_languages"]
+                .map((x) => SpokenLanguageModel.fromJson(x)))
+            : null,
         status: json["status"],
         tagline: json["tagline"],
         title: json["title"],
@@ -69,28 +78,28 @@ class MovieDetailModel extends MovieDetail {
   Map<String, dynamic> toJson() => {
         "adult": adult,
         "backdrop_path": backdropPath,
-        "belongs_to_collection": belongsToCollection.toJson(),
+        "belongs_to_collection": belongsToCollection!.toJson(),
         "budget": budget,
-        "genres": List<dynamic>.from(genres.map((x) => x.toJson())),
+        "genres": List<dynamic>.from(genres!.map((x) => x.toJson())),
         "homepage": homepage,
         "id": id,
         "imdb_id": imdbId,
-        "origin_country": List<dynamic>.from(originCountry.map((x) => x)),
+        "origin_country": List<dynamic>.from(originCountry!.map((x) => x)),
         "original_language": originalLanguage,
         "original_title": originalTitle,
         "overview": overview,
         "popularity": popularity,
         "poster_path": posterPath,
         "production_companies":
-            List<dynamic>.from(productionCompanies.map((x) => x.toJson())),
+            List<dynamic>.from(productionCompanies!.map((x) => x.toJson())),
         "production_countries":
-            List<dynamic>.from(productionCountries.map((x) => x.toJson())),
+            List<dynamic>.from(productionCountries!.map((x) => x.toJson())),
         "release_date":
-            "${releaseDate.year.toString().padLeft(4, '0')}-${releaseDate.month.toString().padLeft(2, '0')}-${releaseDate.day.toString().padLeft(2, '0')}",
+            "${releaseDate!.year.toString().padLeft(4, '0')}-${releaseDate!.month.toString().padLeft(2, '0')}-${releaseDate!.day.toString().padLeft(2, '0')}",
         "revenue": revenue,
         "runtime": runtime,
         "spoken_languages":
-            List<dynamic>.from(spokenLanguages.map((x) => x.toJson())),
+            List<dynamic>.from(spokenLanguages!.map((x) => x.toJson())),
         "status": status,
         "tagline": tagline,
         "title": title,
@@ -102,10 +111,7 @@ class MovieDetailModel extends MovieDetail {
 
 class BelongsToCollectionModel extends BelongsToCollection {
   BelongsToCollectionModel(
-      {required super.id,
-      required super.name,
-      required super.posterPath,
-      required super.backdropPath});
+      {super.id, super.name, super.posterPath, super.backdropPath});
 
   factory BelongsToCollectionModel.fromJson(Map<String, dynamic> json) =>
       BelongsToCollectionModel(
@@ -139,10 +145,7 @@ class GenreModel extends Genre {
 
 class ProductionCompanyModel extends ProductionCompany {
   ProductionCompanyModel(
-      {required super.id,
-      required super.logoPath,
-      required super.name,
-      required super.originCountry});
+      {super.id, super.logoPath, super.name, super.originCountry});
 
   factory ProductionCompanyModel.fromJson(Map<String, dynamic> json) =>
       ProductionCompanyModel(
@@ -161,7 +164,7 @@ class ProductionCompanyModel extends ProductionCompany {
 }
 
 class ProductionCountryModel extends ProductionCountry {
-  ProductionCountryModel({required super.iso31661, required super.name});
+  ProductionCountryModel({super.iso31661, super.name});
 
   factory ProductionCountryModel.fromJson(Map<String, dynamic> json) =>
       ProductionCountryModel(
@@ -176,10 +179,7 @@ class ProductionCountryModel extends ProductionCountry {
 }
 
 class SpokenLanguageModel extends SpokenLanguage {
-  SpokenLanguageModel(
-      {required super.englishName,
-      required super.iso6391,
-      required super.name});
+  SpokenLanguageModel({super.englishName, super.iso6391, super.name});
 
   factory SpokenLanguageModel.fromJson(Map<String, dynamic> json) =>
       SpokenLanguageModel(

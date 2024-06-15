@@ -32,7 +32,7 @@ ThemeData lightTheme = ThemeData(
   primaryColorDark: ThemeConstants.clrDarkBlueGrey,
   useMaterial3: true,
   scaffoldBackgroundColor: ThemeConstants.clrBlack100,
-
+  colorScheme: ColorScheme.fromSeed(seedColor: ThemeConstants.clrLightBlueGrey),
 );
 
 

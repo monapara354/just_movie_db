@@ -2,7 +2,6 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:just_movie/core/constants/string_constants.dart';
-import 'package:just_movie/core/domain/usecase/usecase.dart';
 import 'package:just_movie/features/home/domain/entities/movie_info.dart';
 import 'package:just_movie/features/home/domain/usecases/get_all_movie.dart';
 import 'package:just_movie/features/home/domain/usecases/get_tranding.dart';
@@ -21,7 +20,6 @@ class HomeController extends GetxController {
   RxList<MovieInfo> popularMovieList = <MovieInfo>[].obs;
   RxList<MovieInfo> topRatedMovieList = <MovieInfo>[].obs;
   RxList<MovieInfo> trendingMovieList = <MovieInfo>[].obs;
-
 
   RxBool isLoading = true.obs;
 
@@ -53,18 +51,21 @@ class HomeController extends GetxController {
   ];
 
   Future<void> getAllMovie() async {
-   await getNowPlayingMovie();
-   await getUpcomingMovie();
-   await getPopularMovie();
-   await getTopRatedMovie();
-  await Future.delayed(const Duration(milliseconds: 800),(){
-     isLoading.value = false;
-   },);
+    await getNowPlayingMovie();
+    await getUpcomingMovie();
+    await getPopularMovie();
+    await getTopRatedMovie();
+    await Future.delayed(
+      const Duration(milliseconds: 800),
+      () {
+        isLoading.value = false;
+      },
+    );
   }
 
   Future<void> getNowPlayingMovie() async {
-
-    final getNowPlayingFailedOrSuccess = await getMovieListUC(GetMovieListParams(type: EndPoints.urlNowPlaying));
+    final getNowPlayingFailedOrSuccess =
+        await getMovieListUC(GetMovieListParams(type: EndPoints.urlNowPlaying));
     getNowPlayingFailedOrSuccess.fold((l) {
       debugPrint(l.errorMessage);
     }, (r) {
@@ -87,7 +88,7 @@ class HomeController extends GetxController {
 
   Future<void> getPopularMovie() async {
     final getPopularFailedOrSuccess =
-    await getMovieListUC(GetMovieListParams(type: EndPoints.urlPopular));
+        await getMovieListUC(GetMovieListParams(type: EndPoints.urlPopular));
     getPopularFailedOrSuccess.fold((l) {
       debugPrint(l.errorMessage);
     }, (r) {
@@ -98,7 +99,7 @@ class HomeController extends GetxController {
 
   Future<void> getTopRatedMovie() async {
     final getTopRatedFailedOrSuccess =
-    await getMovieListUC(GetMovieListParams(type: EndPoints.urlTopRated));
+        await getMovieListUC(GetMovieListParams(type: EndPoints.urlTopRated));
     getTopRatedFailedOrSuccess.fold((l) {
       debugPrint(l.errorMessage);
     }, (r) {
@@ -108,8 +109,8 @@ class HomeController extends GetxController {
   }
 
   Future<void> getTrendingMovie() async {
-    final getTrendingFailedOrSuccess =
-    await getTrendingListUC(GetTrendingListParams(type: EndPoints.urlMovie));
+    final getTrendingFailedOrSuccess = await getTrendingListUC(
+        GetTrendingListParams(type: EndPoints.urlMovie));
     getTrendingFailedOrSuccess.fold((l) {
       debugPrint(l.errorMessage);
     }, (r) {

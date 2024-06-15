@@ -1,6 +1,7 @@
 import 'package:dartz/dartz.dart';
-import 'package:just_movie/core/domain/entity/type_def.dart';
-import 'package:just_movie/core/domain/error/failure.dart';
+import 'package:just_movie/core/shared/domain/entity/type_def.dart';
+import 'package:just_movie/core/shared/domain/error/failure.dart';
+
 import 'package:just_movie/features/home/data/datasource/home_datasource.dart';
 import 'package:just_movie/features/home/domain/entities/movie_info.dart';
 import 'package:just_movie/features/home/domain/repositories/home_repository.dart';
@@ -24,7 +25,8 @@ class HomeRepositoryImpl implements HomeRepository {
   }
 
   @override
-  EitherDynamic<List<MovieInfo>> getTrendingList(GetTrendingListParams getTrendingListParams) async {
+  EitherDynamic<List<MovieInfo>> getTrendingList(
+      GetTrendingListParams getTrendingListParams) async {
     try {
       final data = await homeDataSource.getTrendingList(getTrendingListParams);
       return Right(data);
