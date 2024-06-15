@@ -9,7 +9,7 @@ class StringConstants {
 
 class EndPoints {
   static const String baseUrl = 'https://api.themoviedb.org/3';
-  static const String apiKey = 'c37e879922024e7b447766addfb964a2';
+  static const String apiKey = yourApiKey;
   static const String urlNowPlaying = 'now_playing';
   static const String urlUpcoming = 'upcoming';
   static const String urlPopular = 'popular';
