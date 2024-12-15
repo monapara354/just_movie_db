@@ -1,7 +1,9 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:just_movie/core/constants/image_constants.dart';
 import 'package:just_movie/core/constants/theme_constants.dart';
+import 'package:just_movie/core/services/api_urls.dart';
 import 'package:just_movie/features/home/domain/entities/movie_info.dart';
 import 'package:just_movie/features/movie_details/presentation/controller/movie_detail_controller.dart';
 import 'package:just_movie/routes/app_routes.dart';
@@ -9,8 +11,7 @@ import 'package:shimmer/shimmer.dart';
 import 'package:sizer/sizer.dart';
 
 class MovieList extends StatelessWidget {
-   MovieList(
-      {super.key, required this.moviesList, required this.isLoading});
+  MovieList({super.key, required this.moviesList, required this.isLoading});
 
   final List<MovieInfo> moviesList;
   final bool isLoading;
@@ -20,94 +21,114 @@ class MovieList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 25.h,
       child: isLoading
-          ? ListView.builder(
-              itemCount: 5,
+          ? SingleChildScrollView(
               scrollDirection: Axis.horizontal,
-              itemBuilder: (context, index) {
-                return Shimmer.fromColors(
-                    baseColor: ThemeConstants.clrLightBlueGrey,
-                    highlightColor: ThemeConstants.clrBlack100,
-                    child: Container(
-                      width: 30.w,
-                      margin: const EdgeInsets.only(
-                        right: 15,
-                        top: 10,
-                        bottom: 10,
+              child: Row(
+                children: List.generate(
+                  5,
+                  (index) {
+                    return Shimmer.fromColors(
+                      baseColor: ThemeConstants.clrLightBlueGrey,
+                      highlightColor: ThemeConstants.clrBlack100,
+                      child: Container(
+                        width: 115,
+                        height: 170,
+                        margin: const EdgeInsets.only(right: 12),
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(10),
+                          color: ThemeConstants
+                              .clrLightBlueGrey, //ThemeConstants.clrBlack
+                        ),
                       ),
+                    );
+                  },
+                ),
+              ),
+            )
+          : SingleChildScrollView(
+              scrollDirection: Axis.horizontal,
+              child: Row(
+                children: moviesList.map(
+                  (movie) {
+                    return Container(
+                      width: 115,
+                      margin: const EdgeInsets.only(right: 12),
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(10),
                         color: ThemeConstants
                             .clrLightBlueGrey, //ThemeConstants.clrBlack
                       ),
-                    ));
-              })
-          : Obx(() {
-              return ListView.builder(
-                scrollDirection: Axis.horizontal,
-                shrinkWrap: true,
-                itemCount: moviesList.length,
-                itemBuilder: (context, index) {
-                  return GestureDetector(
-                    onTap: (){
-                      movieDetailController.getMovieDetail(moviesList[index].id ?? 0);
-                      Get.toNamed(AppRoutes.movieDetailRoute);
-                    },
-                    child: Container(
-                      width: 30.w,
-                      margin: const EdgeInsets.only(
-                        right: 15,
-                        top: 10,
-                        bottom: 10,
-                      ),
-                      alignment: Alignment.center,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(10),
-                        color: ThemeConstants.clrLightBlueGrey, //ThemeConstants.clrBlack
-                      ),
                       clipBehavior: Clip.hardEdge,
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          CachedNetworkImage(
-                            imageUrl:
-                                'https://image.tmdb.org/t/p/w200${moviesList[index].posterPath}',
-                            placeholder: (context, url) {
-                              return Shimmer.fromColors(
-                                baseColor: ThemeConstants.clrLightBlueGrey,
-                                highlightColor: ThemeConstants.clrBlack100,
-                                child: SizedBox(
-                                  height: 18.6.h,
-                                  width: 30.w,
-                                ),
-                              );
-                            },
-                            height: 18.5.h,
-                            width: 30.w,
-                            fit: BoxFit.cover,
-                          ),
-                          Container(
-                           height: 3.h,
-                            //color: Colors.teal,
-                            alignment: Alignment.center,
-                            padding: const EdgeInsets.only(left: 5,right: 5,bottom: 5),
-                            child: Text(moviesList[index].title ?? '',
-                                textAlign: TextAlign.center,
+                      child: GestureDetector(
+                        onTap: () {
+                          movieDetailController.getMovieDetail(
+                            movie.id ?? 0,
+                          );
+                          movieDetailController.getCastDetail(
+                            movie.id ?? 0,
+                          );
+                          Get.toNamed(AppRoutes.movieDetailRoute);
+                        },
+                        child: Column(
+                          children: [
+                            SizedBox(
+                              width: 115,
+                              height: 150,
+                              child: CachedNetworkImage(
+                                imageUrl:
+                                    '${EndPoints.imageBaseUrl200}${movie.posterPath}',
+                                placeholder: (context, url) {
+                                  return Shimmer.fromColors(
+                                    baseColor: ThemeConstants.clrLightBlueGrey,
+                                    highlightColor: ThemeConstants.clrBlack100,
+                                    child: Container(
+                                      width: 115,
+                                      height: 150,
+                                      decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(10),
+                                        color: ThemeConstants.clrLightBlueGrey,
+                                      ),
+                                    ),
+                                  );
+                                },
+                                errorWidget: (context, url, error) {
+                                  return Image.asset(
+                                    ImageConstants.imgPosterPlace,
+                                    fit: BoxFit.cover,
+                                  );
+                                },
+                                width: 115,
+                                height: 150,
+                                fit: BoxFit.fill,
+                              ),
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.only(
+                                top: 5,
+                                bottom: 5,
+                                left: 2,
+                                right: 2,
+                              ),
+                              child: Text(
+                                movie.title ?? '',
                                 overflow: TextOverflow.ellipsis,
+                                textAlign: TextAlign.center,
                                 softWrap: true,
                                 style: TextStyle(
                                   fontSize: 10.sp,
                                   color: ThemeConstants.clrWhite,
-                                )),
-                          ),
-                        ],
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
                       ),
-                    ),
-                  );
-                },
-              );
-            }),
+                    );
+                  },
+                ).toList(),
+              ),
+            ),
     );
   }
 }

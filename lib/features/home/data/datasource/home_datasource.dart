@@ -1,6 +1,8 @@
-import 'package:dio/dio.dart';
+import 'package:get/get.dart';
 import 'package:just_movie/core/constants/string_constants.dart';
-import 'package:just_movie/core/shared/domain/error/failure.dart';
+import 'package:just_movie/core/services/api_service.dart';
+import 'package:just_movie/core/services/api_urls.dart';
+import 'package:just_movie/core/shared/domain/error/exception.dart';
 
 import 'package:just_movie/features/home/data/model/movie_info_model.dart';
 import 'package:just_movie/features/home/domain/usecases/get_all_movie.dart';
@@ -12,27 +14,26 @@ abstract class HomeDataSource {
 }
 
 class HomeDataSourceImpl extends HomeDataSource {
-  final dio = Dio();
+  final apiService = Get.find<ApiService>();
 
   @override
   Future<List<MovieInfoModel>> getMovieList(GetMovieListParams params) async {
     try {
       List<MovieInfoModel> movieList = [];
-
-      final url =
-          '${EndPoints.baseUrl}/movie/${params.type}?api_key=${EndPoints.apiKey}&region=IN';
-      final response = await dio.get(url);
-      final data = response.data;
-
+      final response = await apiService.getRequest(
+        path: "${ApiUrl.movie}${params.type}",
+        queryParams: {"region": "IN"},
+      );
       if (response.statusCode == 200) {
-        for (var d in data['results']) {
+        for (var d in response.data["results"]) {
           final movie = MovieInfoModel.fromJson(d);
           movieList.add(movie);
         }
       }
       return movieList;
     } catch (e) {
-      throw ServerFailure(errorMessage: e.toString());
+      print("error--=----- ${e.toString()}");
+      throw ServerException(error: StringConstants.strSomethingWrong);
     }
   }
 
@@ -42,20 +43,19 @@ class HomeDataSourceImpl extends HomeDataSource {
     try {
       List<MovieInfoModel> movieList = [];
 
-      final url =
-          '${EndPoints.baseUrl}/trending/${params.type}/day?api_key=${EndPoints.apiKey}';
-      final response = await dio.get(url);
-      final data = response.data;
-
+      final response = await apiService.getRequest(
+        path: ApiUrl.trendingMovie,
+      );
       if (response.statusCode == 200) {
-        for (var d in data['results']) {
+        for (var d in response.data["results"]) {
           final movie = MovieInfoModel.fromJson(d);
           movieList.add(movie);
         }
       }
+
       return movieList;
     } catch (e) {
-      throw ServerFailure(errorMessage: e.toString());
+      throw ServerException(error: StringConstants.strSomethingWrong);
     }
   }
 }

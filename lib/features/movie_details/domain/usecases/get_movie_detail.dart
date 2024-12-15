@@ -1,5 +1,5 @@
-import 'package:just_movie/core/shared/domain/entity/type_def.dart';
 import 'package:just_movie/core/shared/domain/usecase/usecase.dart';
+import 'package:just_movie/core/utils/generic_typedefs.dart';
 import 'package:just_movie/features/movie_details/domain/entities/movie_detail.dart';
 import 'package:just_movie/features/movie_details/domain/repositories/movie_detail_repository.dart';
 

@@ -1,6 +1,7 @@
 import "package:dio/dio.dart";
 import "package:get/get.dart" as state;
-import "package:irisnews/core/shared/domain/model/app_config.dart";
+import "package:just_movie/core/services/api_urls.dart";
+import "package:just_movie/core/shared/domain/model/app_config.dart";
 
 class ApiService {
   final Dio _dio = Dio()
@@ -12,12 +13,9 @@ class ApiService {
     required String path,
     Map<String, dynamic>? data,
     Map<String, dynamic>? queryParameters,
-    String? header,
+    bool isAuthRequired = true,
   }) async {
-    setBaseUrlPort();
-    if (header != null && header.isNotEmpty) {
-      _dio.options.headers["Authorization"] = header;
-    }
+    setBaseConfiguration(isAuthRequired: isAuthRequired);
     _dio.options.validateStatus = (status) => true;
     _dio.options.contentType = Headers.jsonContentType;
     final response = await _dio.post(
@@ -31,12 +29,9 @@ class ApiService {
   Future<Response> getRequest({
     required String path,
     Map<String, dynamic>? queryParams,
-    String? header,
+    bool isAuthRequired = true,
   }) async {
-    setBaseUrlPort();
-    if (header != null && header.isNotEmpty) {
-      _dio.options.headers["Authorization"] = header;
-    }
+    setBaseConfiguration(isAuthRequired: isAuthRequired);
     _dio.options.validateStatus = (status) => true;
     final response = await _dio.get(
       path,
@@ -48,16 +43,10 @@ class ApiService {
   Future<Response> putRequest({
     required String path,
     Map<String, dynamic>? data,
-    String? header,
+    bool isAuthRequired = true,
   }) async {
-    setBaseUrlPort();
-    if (header != null && header.isNotEmpty) {
-      _dio.options.headers["Authorization"] = header;
-    }
-    final response = await _dio.put(
-      path,
-      data: data,
-    );
+    setBaseConfiguration(isAuthRequired: isAuthRequired);
+    final response = await _dio.put(path, data: data);
     return response;
   }
 
@@ -65,16 +54,14 @@ class ApiService {
     required String path,
     Map<String, dynamic>? data,
     Map<String, dynamic>? queryParameters,
-    String? header,
     String? file,
+    bool isAuthRequired = true,
   }) async {
-    setBaseUrlPort();
-    if (header != null && header.isNotEmpty) {
-      _dio.options.headers["Authorization"] = header;
-    }
+    setBaseConfiguration(isAuthRequired: isAuthRequired);
     _dio.options.validateStatus = (status) => true;
 
     var formData = FormData();
+    final Response response;
 
     if (file != null && file.isNotEmpty) {
       _dio.options.contentType = Headers.multipartFormDataContentType;
@@ -82,23 +69,45 @@ class ApiService {
         "profile_picture": await MultipartFile.fromFile(file),
       });
       formData = FormData.fromMap(data!);
+      response = await _dio.patch(
+        path,
+        data: formData,
+        queryParameters: queryParameters,
+      );
     } else {
-      final List<MapEntry<String, String>> mapEntries = data?.entries
-              .map((entry) => MapEntry(entry.key, entry.value.toString()))
-              .toList() ??
-          [];
-      formData.fields.addAll(mapEntries);
+      formData = FormData.fromMap(data!);
+      response = await _dio.patch(
+        path,
+        data: formData,
+        queryParameters: queryParameters,
+      );
     }
-    final response = await _dio.patch(
+    return response;
+  }
+
+  Future<Response> deleteRequest({
+    required String path,
+    Map<String, dynamic>? data,
+    bool isAuthRequired = true,
+  }) async {
+    setBaseConfiguration(isAuthRequired: isAuthRequired);
+    final response = await _dio.delete(
       path,
-      data: formData,
-      queryParameters: queryParameters,
+      data: data,
     );
     return response;
   }
 
-  void setBaseUrlPort() {
+  void setBaseConfiguration({bool isAuthRequired = true}) {
     final appConfig = state.Get.find<AppConfig>();
     _dio.options.baseUrl = appConfig.getBaseUrl;
+    if (isAuthRequired) {
+      // final jwtToken =
+      //     state.Get.find<LocalCache>().getString(Preferences.jwtToken);
+      const jwtToken = EndPoints.accessToken;
+      _dio.options.headers["Authorization"] = "Bearer $jwtToken";
+    } else {
+      _dio.options.headers = null;
+    }
   }
 }

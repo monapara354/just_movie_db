@@ -10,23 +10,28 @@ class TitleText extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return isLoading ? Shimmer.fromColors(
-      baseColor: ThemeConstants.clrLightBlueGrey,
-      highlightColor: ThemeConstants.clrBlack100,
-      child: Container(
-        width: 35.w,
-        height: 8.w,
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(8),
-          color: ThemeConstants.clrBlack100,
-        ),
-      ),
-    ) : Text(
-      title,
-      style: const TextStyle(
-        fontSize: 20,
-        color: ThemeConstants.clrWhite,
-      ),
+    return Padding(
+      padding: const EdgeInsets.only(top: 20, bottom: 10),
+      child: isLoading
+          ? Shimmer.fromColors(
+              baseColor: ThemeConstants.clrLightBlueGrey,
+              highlightColor: ThemeConstants.clrBlack100,
+              child: Container(
+                width: 35.w,
+                height: 8.w,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(8),
+                  color: ThemeConstants.clrBlack100,
+                ),
+              ),
+            )
+          : Text(
+              title,
+              style: const TextStyle(
+                fontSize: 20,
+                color: ThemeConstants.clrWhite,
+              ),
+            ),
     );
   }
 }

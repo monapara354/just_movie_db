@@ -7,8 +7,8 @@ import 'package:just_movie/routes/app_pages.dart';
 import 'package:just_movie/routes/app_routes.dart';
 import 'package:sizer/sizer.dart';
 
-void main() {
-  init();
+Future<void> main() async {
+  await init();
   runApp(const MyApp());
 }
 
@@ -17,16 +17,14 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Sizer(
-      builder:(context, orientation, deviceType)  {
-        return GetMaterialApp(
-          title: StringConstants.strAppName,
-          debugShowCheckedModeBanner: false,
-          theme: lightTheme,
-          getPages: AppPages.pageList,
-          initialRoute: AppRoutes.initialRoute,
-        );
-      }
-    );
+    return Sizer(builder: (context, orientation, deviceType) {
+      return GetMaterialApp(
+        title: StringConstants.strAppName,
+        debugShowCheckedModeBanner: false,
+        theme: lightTheme,
+        getPages: AppPages.pageList,
+        initialRoute: AppRoutes.initialRoute,
+      );
+    });
   }
 }

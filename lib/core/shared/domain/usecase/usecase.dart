@@ -1,4 +1,4 @@
-import 'package:just_movie/core/shared/domain/entity/type_def.dart';
+import 'package:just_movie/core/utils/generic_typedefs.dart';
 
 abstract class UseCase<T, NoParams> {
   EitherDynamic<T> call(NoParams params);

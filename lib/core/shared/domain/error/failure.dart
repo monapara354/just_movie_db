@@ -4,11 +4,13 @@ abstract class Failure {
 }
 
 class ServerFailure extends Failure {
-  ServerFailure({required String errorMessage})
-      : super(errorMessage: errorMessage);
+  ServerFailure({required super.errorMessage});
 }
 
 class CacheFailure extends Failure {
-  CacheFailure({required String errorMessage})
-      : super(errorMessage: errorMessage);
+  CacheFailure({required super.errorMessage});
+}
+
+class GeneralFailure extends Failure {
+  GeneralFailure({required super.errorMessage});
 }

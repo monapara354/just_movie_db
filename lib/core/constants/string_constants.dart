@@ -1,5 +1,3 @@
-import 'package:just_movie/core/constants/value.dart';
-
 class StringConstants {
   static const String strAppName = 'Just Movie';
 
@@ -7,14 +5,18 @@ class StringConstants {
   static const String strUpcoming = 'Upcoming';
   static const String strPopular = 'Popular';
   static const String strTopRated = 'Top Rated';
-}
-
-class EndPoints {
-  static const String baseUrl = 'https://api.themoviedb.org/3';
-  static const String apiKey = myApiKey;
-  static const String urlNowPlaying = 'now_playing';
-  static const String urlUpcoming = 'upcoming';
-  static const String urlPopular = 'popular';
-  static const String urlTopRated = 'top_rated';
-  static const String urlMovie = 'movie';
+  static const String strMovieInfo = 'Movie Info';
+  static const String strMovies = "Movies";
+  static const String strTvShows = "TV show";
+  static const String strOverview = 'Overview';
+  static const String strOriginalTitle = 'Original Title';
+  static const String strOriginalLanguage = 'Original Language';
+  static const String strReleaseDate = 'Release Date';
+  static const String strStatus = 'Status';
+  static const String strRevenue = 'Revenue';
+  static const String strBudget = 'Budget';
+  static const String strCast = "Cast";
+  static const String strPleaseCheckInternetConnection =
+      "Please check your internet connection";
+  static const String strSomethingWrong = "Something went wrong";
 }

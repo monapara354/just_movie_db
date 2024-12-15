@@ -1,6 +1,11 @@
 import 'package:dartz/dartz.dart';
-import 'package:just_movie/core/shared/domain/entity/type_def.dart';
+import 'package:get/get.dart';
+import 'package:just_movie/core/constants/string_constants.dart';
+import 'package:just_movie/core/shared/domain/error/exception.dart';
+
 import 'package:just_movie/core/shared/domain/error/failure.dart';
+import 'package:just_movie/core/shared/presentaion/controller/check_internet_controller.dart';
+import 'package:just_movie/core/utils/generic_typedefs.dart';
 
 import 'package:just_movie/features/home/data/datasource/home_datasource.dart';
 import 'package:just_movie/features/home/domain/entities/movie_info.dart';
@@ -13,25 +18,46 @@ class HomeRepositoryImpl implements HomeRepository {
 
   HomeRepositoryImpl({required this.homeDataSource});
 
+  final checkInternetController = Get.find<CheckInternetController>();
+
   @override
   EitherDynamic<List<MovieInfo>> getMovieList(
-      GetMovieListParams getMovieListParams) async {
-    try {
-      final data = await homeDataSource.getMovieList(getMovieListParams);
-      return Right(data);
-    } catch (e) {
-      return Left(ServerFailure(errorMessage: e.toString()));
+    GetMovieListParams getMovieListParams,
+  ) async {
+    if (checkInternetController.isConnected.value) {
+      try {
+        final data = await homeDataSource.getMovieList(getMovieListParams);
+        return Right(data);
+      } on ServerException catch (e) {
+        return Left(ServerFailure(errorMessage: e.error));
+      }
+    } else {
+      return Left(
+        GeneralFailure(
+          errorMessage: StringConstants.strPleaseCheckInternetConnection,
+        ),
+      );
     }
   }
 
   @override
   EitherDynamic<List<MovieInfo>> getTrendingList(
-      GetTrendingListParams getTrendingListParams) async {
-    try {
-      final data = await homeDataSource.getTrendingList(getTrendingListParams);
-      return Right(data);
-    } catch (e) {
-      return Left(ServerFailure(errorMessage: e.toString()));
+    GetTrendingListParams getTrendingListParams,
+  ) async {
+    if (checkInternetController.isConnected.value) {
+      try {
+        final data =
+            await homeDataSource.getTrendingList(getTrendingListParams);
+        return Right(data);
+      } on ServerException catch (e) {
+        return Left(ServerFailure(errorMessage: e.error));
+      }
+    } else {
+      return Left(
+        GeneralFailure(
+          errorMessage: StringConstants.strPleaseCheckInternetConnection,
+        ),
+      );
     }
   }
 }

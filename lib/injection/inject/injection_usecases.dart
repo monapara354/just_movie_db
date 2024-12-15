@@ -1,7 +1,9 @@
 import 'package:get/get.dart';
 import 'package:just_movie/features/home/domain/usecases/get_all_movie.dart';
 import 'package:just_movie/features/home/domain/usecases/get_tranding.dart';
+import 'package:just_movie/features/movie_details/domain/usecases/get_cast_detail.dart';
 import 'package:just_movie/features/movie_details/domain/usecases/get_movie_detail.dart';
+import 'package:just_movie/features/movie_details/domain/usecases/get_person_detail.dart';
 
 class InjectionUseCases {
   InjectionUseCases.inject() {
@@ -16,6 +18,18 @@ class InjectionUseCases {
       )
       ..lazyPut<GetMovieDetailUC>(
         () => GetMovieDetailUC(movieDetailRepository: Get.find()),
+        fenix: true,
+      )
+      ..lazyPut<GetCastDetailUC>(
+        () => GetCastDetailUC(movieDetailRepository: Get.find()),
+        fenix: true,
+      )
+      ..lazyPut<GetPersonDetailUC>(
+        () => GetPersonDetailUC(movieDetailRepository: Get.find()),
+        fenix: true,
+      )
+      ..lazyPut<GetPersonMoviesUC>(
+        () => GetPersonMoviesUC(movieDetailRepository: Get.find()),
         fenix: true,
       );
   }

@@ -1,24 +1,23 @@
+import 'package:just_movie/core/constants/value.dart';
+
 class ApiUrl {
-  /// Authentication
-  static const socialLogin = "api/auth/social-auth/";
-  static const registerUser = "api/auth/register/";
-  static const loginUser = "api/auth/login/";
-  static const verifyEmailOtp = "api/auth/verify-email/";
-  static const resendOtp = "api/auth/resend-otp/";
-  static const resetPasswordOtpSend = "api/auth/reset-password/";
-  static const setNewPassword = "api/auth/set-password/";
-  static const refreshToken = "api/auth/refresh-token/";
+  static const movie = "movie/";
+  static const trendingMovie = "trending/movie/day/";
+  static const credits = "/credits";
+  static const person = "person/";
+  static const movieCredits = "/movie_credits";
+}
 
-  /// users
-  static const updateProfile = "api/auth/users/current-user/update-profile/";
-  static const getUser = "api/auth/users/";
-
-  /// posts
-  static const postPreview = "api/posts/metadata/preview/";
-  static const posts = "api/posts/";
-  static const timeline = "api/timeline";
-
-  /// Bookmarks
-  static const addBookmark = "api/posts/bookmark/";
-  static const myBookmark = "api/posts/bookmark/my-bookmarks/";
+class EndPoints {
+  static const String baseUrl = 'https://api.themoviedb.org/3/';
+  static const String imageBaseUrl200 = "https://image.tmdb.org/t/p/w200";
+  static const String imageBaseUrl500 = "https://image.tmdb.org/t/p/w500";
+  static const String imageBaseUrl300 = "https://image.tmdb.org/t/p/w300";
+  static const String accessToken = myAccessToken;
+  static const String apiKey = myApiKey;
+  static const String urlNowPlaying = 'now_playing';
+  static const String urlUpcoming = 'upcoming';
+  static const String urlPopular = 'popular';
+  static const String urlTopRated = 'top_rated';
+  static const String urlMovie = 'movie';
 }

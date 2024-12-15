@@ -5,16 +5,19 @@ import 'package:just_movie/features/movie_details/presentation/controller/movie_
 class InjectionController {
   InjectionController.inject() {
     Get
-      ..put(
-        HomeController(
+      ..lazyPut(
+        () => HomeController(
           getMovieListUC: Get.find(),
           getTrendingListUC: Get.find(),
         ),
-        permanent: true,
+        fenix: true,
       )
       ..lazyPut<MovieDetailController>(
         () => MovieDetailController(
           getMovieDetailUC: Get.find(),
+          getCastDetailUC: Get.find(),
+          getPersonDetailUC: Get.find(),
+          getPersonMoviesUC: Get.find(),
         ),
         fenix: true,
       );

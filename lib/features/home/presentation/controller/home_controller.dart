@@ -1,7 +1,8 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:just_movie/core/constants/string_constants.dart';
+import 'package:just_movie/core/services/api_urls.dart';
+import 'package:just_movie/core/shared/domain/error/failure.dart';
 import 'package:just_movie/features/home/domain/entities/movie_info.dart';
 import 'package:just_movie/features/home/domain/usecases/get_all_movie.dart';
 import 'package:just_movie/features/home/domain/usecases/get_tranding.dart';
@@ -51,71 +52,117 @@ class HomeController extends GetxController {
   ];
 
   Future<void> getAllMovie() async {
-    await getNowPlayingMovie();
-    await getUpcomingMovie();
-    await getPopularMovie();
-    await getTopRatedMovie();
     await Future.delayed(
-      const Duration(milliseconds: 800),
-      () {
-        isLoading.value = false;
+      const Duration(seconds: 1),
+      () async {
+        await getNowPlayingMovie();
+        await getUpcomingMovie();
+        await getPopularMovie();
+        await getTopRatedMovie();
+        await Future.delayed(
+          const Duration(milliseconds: 800),
+          () {
+            isLoading.value = false;
+          },
+        );
       },
     );
   }
 
   Future<void> getNowPlayingMovie() async {
-    final getNowPlayingFailedOrSuccess =
-        await getMovieListUC(GetMovieListParams(type: EndPoints.urlNowPlaying));
-    getNowPlayingFailedOrSuccess.fold((l) {
-      debugPrint(l.errorMessage);
-    }, (r) {
-      print('object------${r.length}');
+    final getNowPlayingFailedOrSuccess = await getMovieListUC(
+      GetMovieListParams(type: EndPoints.urlNowPlaying),
+    );
+
+    getNowPlayingFailedOrSuccess.fold((left) {
+      var error = "";
+      if (left is GeneralFailure) {
+        error = left.errorMessage;
+      }
+      if (left is ServerFailure) {
+        error = left.errorMessage;
+      }
+      // showToast(title: error);
+      debugPrint(error);
+    }, (right) {
       nowPlayingMovieList.clear();
-      nowPlayingMovieList.value = r;
+      nowPlayingMovieList.value = right;
     });
   }
 
   Future<void> getUpcomingMovie() async {
     final getUpcomingFailedOrSuccess =
         await getMovieListUC(GetMovieListParams(type: EndPoints.urlUpcoming));
-    getUpcomingFailedOrSuccess.fold((l) {
-      debugPrint(l.errorMessage);
-    }, (r) {
+    getUpcomingFailedOrSuccess.fold((left) {
+      var error = "";
+      if (left is GeneralFailure) {
+        error = left.errorMessage;
+      }
+      if (left is ServerFailure) {
+        error = left.errorMessage;
+      }
+      // showToast(title: error);
+      debugPrint(left.errorMessage);
+    }, (right) {
       upcomingMovieList.clear();
-      upcomingMovieList.value = r;
+      upcomingMovieList.value = right;
     });
   }
 
   Future<void> getPopularMovie() async {
     final getPopularFailedOrSuccess =
         await getMovieListUC(GetMovieListParams(type: EndPoints.urlPopular));
-    getPopularFailedOrSuccess.fold((l) {
-      debugPrint(l.errorMessage);
-    }, (r) {
+    getPopularFailedOrSuccess.fold((left) {
+      var error = "";
+      if (left is GeneralFailure) {
+        error = left.errorMessage;
+      }
+      if (left is ServerFailure) {
+        error = left.errorMessage;
+      }
+      // showToast(title: error);
+      debugPrint(left.errorMessage);
+    }, (right) {
       popularMovieList.clear();
-      popularMovieList.value = r;
+      popularMovieList.value = right;
     });
   }
 
   Future<void> getTopRatedMovie() async {
     final getTopRatedFailedOrSuccess =
         await getMovieListUC(GetMovieListParams(type: EndPoints.urlTopRated));
-    getTopRatedFailedOrSuccess.fold((l) {
-      debugPrint(l.errorMessage);
-    }, (r) {
+    getTopRatedFailedOrSuccess.fold((left) {
+      var error = "";
+      if (left is GeneralFailure) {
+        error = left.errorMessage;
+      }
+      if (left is ServerFailure) {
+        error = left.errorMessage;
+      }
+      // showToast(title: error);
+      debugPrint(left.errorMessage);
+    }, (right) {
       topRatedMovieList.clear();
-      topRatedMovieList.value = r;
+      topRatedMovieList.value = right;
     });
   }
 
   Future<void> getTrendingMovie() async {
     final getTrendingFailedOrSuccess = await getTrendingListUC(
         GetTrendingListParams(type: EndPoints.urlMovie));
-    getTrendingFailedOrSuccess.fold((l) {
-      debugPrint(l.errorMessage);
-    }, (r) {
+    getTrendingFailedOrSuccess.fold((left) {
+      var error = "";
+      if (left is GeneralFailure) {
+        error = left.errorMessage;
+      }
+      if (left is ServerFailure) {
+        error = left.errorMessage;
+      }
+      // showToast(title: error);
+      debugPrint(left.errorMessage);
+    }, (right) {
       trendingMovieList.clear();
-      trendingMovieList.value = r;
+      trendingMovieList.value = right;
     });
   }
 
@@ -142,10 +189,10 @@ class HomeController extends GetxController {
   }
 
   @override
-  void onInit() {
+  Future<void> onInit() async {
     // TODO: implement onInit
     super.onInit();
     isLoading.value = true;
-    getAllMovie();
+    await getAllMovie();
   }
 }
