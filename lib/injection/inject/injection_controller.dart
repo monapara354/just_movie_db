@@ -9,6 +9,8 @@ class InjectionController {
         () => HomeController(
           getMovieListUC: Get.find(),
           getTrendingListUC: Get.find(),
+          getTrendingTVListUC: Get.find(),
+          getTvListUC: Get.find(),
         ),
         fenix: true,
       )
@@ -18,6 +20,8 @@ class InjectionController {
           getCastDetailUC: Get.find(),
           getPersonDetailUC: Get.find(),
           getPersonMoviesUC: Get.find(),
+          getTVDetailUC: Get.find(),
+          getPersonTvShowUC: Get.find(),
         ),
         fenix: true,
       );

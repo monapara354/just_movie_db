@@ -1,17 +1,25 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:just_movie/core/constants/string_constants.dart';
 import 'package:just_movie/core/constants/theme_constants.dart';
 import 'package:shimmer/shimmer.dart';
 import 'package:sizer/sizer.dart';
 
 class TitleText extends StatelessWidget {
-  const TitleText({super.key, required this.title, required this.isLoading});
+  const TitleText({
+    super.key,
+    required this.title,
+    required this.isLoading,
+    this.isTvShow = false,
+  });
   final String title;
   final bool isLoading;
+  final bool isTvShow;
 
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(top: 20, bottom: 10),
+      padding: const EdgeInsets.only(top: 30, bottom: 10),
       child: isLoading
           ? Shimmer.fromColors(
               baseColor: ThemeConstants.clrLightBlueGrey,
@@ -25,12 +33,24 @@ class TitleText extends StatelessWidget {
                 ),
               ),
             )
-          : Text(
-              title,
-              style: const TextStyle(
-                fontSize: 20,
-                color: ThemeConstants.clrWhite,
-              ),
+          : Row(
+              children: [
+                Text(
+                  title,
+                  style: const TextStyle(
+                    fontSize: 20,
+                    color: ThemeConstants.clrWhite,
+                  ),
+                ),
+                if (isTvShow)
+                  const Text(
+                    StringConstants.strTvShows,
+                    style: TextStyle(
+                      fontSize: 13,
+                      color: ThemeConstants.clrGrey,
+                    ),
+                  ).marginOnly(left: 10),
+              ],
             ),
     );
   }

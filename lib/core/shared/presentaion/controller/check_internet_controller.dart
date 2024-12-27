@@ -5,41 +5,41 @@ import "package:get/get.dart";
 import "package:just_movie/core/utils/library/data_connection_checked/data_connection_checker.dart";
 
 class CheckInternetController extends GetxController {
-  RxBool isConnected = false.obs;
+  RxBool isConnected = true.obs;
   Connectivity connectivity = Connectivity();
   StreamSubscription? connectionStream;
   StreamSubscription? dataConnectionStream;
   DataConnectionChecker dataConnectionChecker = DataConnectionChecker();
 
   @override
-  Future<void> onInit() async {
-    await init();
+  void onInit() {
     super.onInit();
+    init();
   }
 
-  Future<void> init() async {
+  Future<bool> get hasConnection => dataConnectionChecker.hasConnection;
+
+  void init() {
     connectivity.checkConnectivity().then((result) async {
-      if (result.contains(ConnectivityResult.none)) {
+      if (result == ConnectivityResult.none) {
         /// Connection is not available
         isConnected.value = false;
       } else {
-        // isConnected.value = true;
-
         /// Connection is available
         await dataConnectionChecker.hasConnection
             ? isConnected.value = true
             : isConnected.value = false;
       }
     });
-    connectionStream = connectivity.onConnectivityChanged.listen((result) {
-      if (result.contains(ConnectivityResult.none)) {
+    connectionStream = Connectivity().onConnectivityChanged.listen((result) {
+      if (result == ConnectivityResult.none) {
         /// Connection is not available
         isConnected.value = false;
       } else {
         /// Connection is available
-        if (!result.contains(ConnectivityResult.mobile)) {
+        if (result != ConnectivityResult.mobile) {
           dataConnectionStream =
-              dataConnectionChecker.onStatusChange.listen((status) {
+              DataConnectionChecker().onStatusChange.listen((status) {
             switch (status) {
               case DataConnectionStatus.connected:
                 isConnected.value = true;

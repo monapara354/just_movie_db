@@ -5,6 +5,11 @@ class StringConstants {
   static const String strUpcoming = 'Upcoming';
   static const String strPopular = 'Popular';
   static const String strTopRated = 'Top Rated';
+  static const String strTvshow = "TV show";
+  static const String strTrending = "Trending";
+  static const String strNetflix = "Netflix";
+  static const String strAmazon = "Amazon";
+  static const String strDisney = "Disney";
   static const String strMovieInfo = 'Movie Info';
   static const String strMovies = "Movies";
   static const String strTvShows = "TV show";
@@ -19,4 +24,8 @@ class StringConstants {
   static const String strPleaseCheckInternetConnection =
       "Please check your internet connection";
   static const String strSomethingWrong = "Something went wrong";
+  static const String strTvInfo = "Tv Info";
+  static const String strTotalEpisodes = "Total Episodes";
+  static const String strSeasons = "Seasons";
+  static const String strNetworks = "Networks";
 }

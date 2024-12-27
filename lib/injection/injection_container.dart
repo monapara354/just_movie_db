@@ -17,8 +17,9 @@ Future<void> init() async {
   );
   Get
     ..put<CheckInternetController>(CheckInternetController(), permanent: true)
-    ..put<AppConfig>(AppConfig(baseUrl: EndPoints.baseUrl), permanent: true)
-    ..put(ApiService(), permanent: true);
+    ..lazyPut<AppConfig>(() => AppConfig(baseUrl: EndPoints.baseUrl),
+        fenix: true)
+    ..lazyPut(() => ApiService(), fenix: true);
 
   InjectionDataSource.inject();
   InjectionRepositories.inject();

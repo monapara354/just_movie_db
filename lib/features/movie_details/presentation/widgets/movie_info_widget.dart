@@ -9,12 +9,14 @@ import 'package:just_movie/core/shared/domain/methods/methods.dart';
 import 'package:just_movie/features/movie_details/domain/entities/cast_crew.dart';
 import 'package:just_movie/features/movie_details/domain/entities/movie_detail.dart';
 import 'package:just_movie/features/movie_details/presentation/controller/movie_detail_controller.dart';
+import 'package:just_movie/features/movie_details/presentation/widgets/cast_widget.dart';
+import 'package:just_movie/features/movie_details/presentation/widgets/common_container.dart';
 import 'package:just_movie/features/movie_details/presentation/widgets/info_row.dart';
 import 'package:just_movie/routes/app_routes.dart';
 import 'package:sizer/sizer.dart';
 
-class MovieInfo extends StatelessWidget {
-  const MovieInfo({super.key, required this.movieInfo, this.castCrew});
+class MovieInfoWidget extends StatelessWidget {
+  const MovieInfoWidget({super.key, required this.movieInfo, this.castCrew});
 
   final MovieDetail movieInfo;
   final CastCrew? castCrew;
@@ -36,29 +38,8 @@ class MovieInfo extends StatelessWidget {
             scrollDirection: Axis.horizontal,
             shrinkWrap: true,
             itemBuilder: (context, index) {
-              return Container(
-                alignment: Alignment.center,
-                decoration: BoxDecoration(
-                  color: ThemeConstants.clrLightBlueGrey,
-                  border: Border.all(
-                    color: ThemeConstants.clrBlueGrey,
-                  ),
-                  borderRadius: const BorderRadius.all(
-                    Radius.circular(5),
-                  ),
-                ),
-                margin: const EdgeInsets.only(left: 7, top: 5),
-                padding: const EdgeInsets.only(
-                  left: 5,
-                  right: 5,
-                ),
-                child: Text(
-                  movieInfo.genres![index].name.toString(),
-                  style: const TextStyle(
-                    fontSize: 13,
-                    color: ThemeConstants.clrWhite,
-                  ),
-                ),
+              return CommonContainer(
+                name: movieInfo.genres![index].name.toString(),
               );
             },
             itemCount: movieInfo.genres?.length ?? 0,
@@ -168,68 +149,18 @@ class MovieInfo extends StatelessWidget {
                     itemCount: castCrew?.cast?.length ?? 0,
                     itemBuilder: (context, index) {
                       final castList = castCrew?.cast?[index];
-                      return GestureDetector(
+                      return CastWidget(
                         onTap: () {
+                          print("person ID----${castList.id}");
                           Get.find<MovieDetailController>()
                             ..getPersonDetail(castList.id ?? 0)
-                            ..getPersonMovie(castList.id ?? 0);
+                            ..getPersonMovie(castList.id ?? 0)
+                            ..getPersonTvShow(castList.id ?? 0);
                           Get.toNamed(AppRoutes.personDetailRoute);
                         },
-                        child: Container(
-                          width: 95.sp,
-                          decoration: BoxDecoration(
-                            color: ThemeConstants.clrDarkBlueGrey,
-                            border: Border.all(color: ThemeConstants.clrGrey),
-                            borderRadius: BorderRadius.circular(12),
-                          ),
-                          margin: const EdgeInsets.symmetric(horizontal: 8),
-                          padding: const EdgeInsets.all(5),
-                          child: Column(
-                            mainAxisSize: MainAxisSize.min,
-                            children: [
-                              Container(
-                                margin: const EdgeInsets.only(bottom: 5),
-                                decoration: const BoxDecoration(
-                                  shape: BoxShape.circle,
-                                ),
-                                clipBehavior: Clip.hardEdge,
-                                child: CachedNetworkImage(
-                                  imageUrl:
-                                      '${EndPoints.imageBaseUrl200}${castList?.profilePath}',
-                                  errorWidget: (context, url, error) {
-                                    return Image.asset(
-                                      ImageConstants.imgUserPlace,
-                                      fit: BoxFit.fill,
-                                    );
-                                  },
-                                  fit: BoxFit.fill,
-                                  height: 80,
-                                  width: 80,
-                                ),
-                              ),
-                              Flexible(
-                                child: Text(
-                                  castList!.name.toString(),
-                                  textAlign: TextAlign.center,
-                                  maxLines: 2,
-                                  overflow: TextOverflow.ellipsis,
-                                  style: const TextStyle(
-                                    fontSize: 14,
-                                    color: Colors.white,
-                                  ),
-                                ),
-                              ),
-                              Text(
-                                castList.character.toString(),
-                                style: const TextStyle(
-                                  fontSize: 13,
-                                  color: Colors.white60,
-                                ),
-                                overflow: TextOverflow.ellipsis,
-                              ),
-                            ],
-                          ),
-                        ),
+                        profilePath: castList?.profilePath ?? "",
+                        name: castList!.name.toString(),
+                        characterName: castList.character.toString(),
                       );
                     },
                   ),

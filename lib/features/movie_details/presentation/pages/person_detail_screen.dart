@@ -6,6 +6,7 @@ import 'package:just_movie/core/constants/string_constants.dart';
 import 'package:just_movie/core/constants/theme_constants.dart';
 import 'package:just_movie/core/services/api_urls.dart';
 import 'package:just_movie/features/home/presentation/widgets/movie_list.dart';
+import 'package:just_movie/features/home/presentation/widgets/tv_list.dart';
 import 'package:just_movie/features/movie_details/presentation/controller/movie_detail_controller.dart';
 import 'package:shimmer/shimmer.dart';
 
@@ -102,7 +103,7 @@ class PersonDetailScreen extends StatelessWidget {
                 ),
                 Container(
                   alignment: Alignment.centerLeft,
-                  margin: const EdgeInsets.only(top: 10, bottom: 12),
+                  margin: const EdgeInsets.only(top: 24, bottom: 12),
                   child: const Text(
                     StringConstants.strMovies,
                     style: TextStyle(
@@ -115,6 +116,22 @@ class PersonDetailScreen extends StatelessWidget {
                 MovieList(
                   moviesList: movieDetailController.movieList,
                   isLoading: movieDetailController.isMovieLoading.value,
+                ),
+                Container(
+                  alignment: Alignment.centerLeft,
+                  margin: const EdgeInsets.only(top: 24, bottom: 12),
+                  child: const Text(
+                    StringConstants.strTvShows,
+                    style: TextStyle(
+                      color: ThemeConstants.clrYellow,
+                      fontWeight: FontWeight.w600,
+                      fontSize: 16,
+                    ),
+                  ),
+                ),
+                TvList(
+                  tvList: movieDetailController.tvList,
+                  isLoading: movieDetailController.isTvLoading.value,
                 ),
               ],
             ),

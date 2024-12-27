@@ -1,29 +1,28 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+
 import 'package:just_movie/core/constants/image_constants.dart';
 import 'package:just_movie/core/constants/theme_constants.dart';
 import 'package:just_movie/core/services/api_urls.dart';
 import 'package:just_movie/core/utils/generic_enums.dart';
-import 'package:just_movie/features/home/domain/entities/movie_info.dart';
+import 'package:just_movie/features/home/domain/entities/tv_info.dart';
 import 'package:just_movie/features/movie_details/presentation/controller/movie_detail_controller.dart';
 import 'package:just_movie/routes/app_routes.dart';
 import 'package:shimmer/shimmer.dart';
 import 'package:sizer/sizer.dart';
 
-class MovieList extends StatelessWidget {
-  MovieList({
+class TvList extends StatelessWidget {
+  const TvList({
     super.key,
-    required this.moviesList,
+    required this.tvList,
     required this.isLoading,
     this.onRefresh,
   });
 
-  final List<MovieInfo> moviesList;
+  final List<TvResult> tvList;
   final bool isLoading;
   final Function()? onRefresh;
-
-  final movieDetailController = Get.find<MovieDetailController>();
 
   @override
   Widget build(BuildContext context) {
@@ -53,12 +52,12 @@ class MovieList extends StatelessWidget {
                 ),
               ),
             )
-          : moviesList.isNotEmpty
+          : tvList.isNotEmpty
               ? SingleChildScrollView(
                   scrollDirection: Axis.horizontal,
                   child: Row(
-                    children: moviesList.map(
-                      (movie) {
+                    children: tvList.map(
+                      (tv) {
                         return Container(
                           width: 115,
                           margin: const EdgeInsets.only(right: 12),
@@ -70,14 +69,17 @@ class MovieList extends StatelessWidget {
                           clipBehavior: Clip.hardEdge,
                           child: GestureDetector(
                             onTap: () {
-                              movieDetailController.getMovieDetail(
-                                movie.id ?? 0,
+                              print("---------${tv.id}");
+                              final movieDetailController =
+                                  Get.find<MovieDetailController>();
+                              movieDetailController.getTvDetail(
+                                tv.id ?? 0,
                               );
                               movieDetailController.getCastDetail(
-                                movie.id ?? 0,
-                                Credit.movie,
+                                tv.id ?? 0,
+                                Credit.tv,
                               );
-                              Get.toNamed(AppRoutes.movieDetailRoute);
+                              Get.toNamed(AppRoutes.tvDetailRoute);
                             },
                             child: Column(
                               children: [
@@ -86,7 +88,7 @@ class MovieList extends StatelessWidget {
                                   height: 150,
                                   child: CachedNetworkImage(
                                     imageUrl:
-                                        '${EndPoints.imageBaseUrl200}${movie.posterPath}',
+                                        '${EndPoints.imageBaseUrl200}${tv.posterPath}',
                                     placeholder: (context, url) {
                                       return Shimmer.fromColors(
                                         baseColor:
@@ -124,7 +126,7 @@ class MovieList extends StatelessWidget {
                                     right: 2,
                                   ),
                                   child: Text(
-                                    movie.title ?? '',
+                                    tv.name ?? '',
                                     overflow: TextOverflow.ellipsis,
                                     textAlign: TextAlign.center,
                                     softWrap: true,
@@ -142,22 +144,25 @@ class MovieList extends StatelessWidget {
                     ).toList(),
                   ),
                 )
-              : Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    IconButton(
-                      onPressed: onRefresh,
-                      padding: const EdgeInsets.all(18),
-                      style: IconButton.styleFrom(
-                        backgroundColor:
-                            ThemeConstants.clrLightBlueGrey.withOpacity(0.5),
+              : Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 10),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      IconButton(
+                        onPressed: onRefresh,
+                        padding: const EdgeInsets.all(18),
+                        style: IconButton.styleFrom(
+                          backgroundColor:
+                              ThemeConstants.clrLightBlueGrey.withOpacity(0.5),
+                        ),
+                        icon: const Icon(
+                          Icons.refresh,
+                          color: ThemeConstants.clrAmberYellow,
+                        ),
                       ),
-                      icon: const Icon(
-                        Icons.refresh,
-                        color: ThemeConstants.clrAmberYellow,
-                      ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
     );
   }

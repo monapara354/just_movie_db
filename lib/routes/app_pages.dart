@@ -2,6 +2,7 @@ import 'package:get/get.dart';
 import 'package:just_movie/features/home/presentation/pages/home_screen.dart';
 import 'package:just_movie/features/movie_details/presentation/pages/movie_detail_screen.dart';
 import 'package:just_movie/features/movie_details/presentation/pages/person_detail_screen.dart';
+import 'package:just_movie/features/movie_details/presentation/pages/tv_detail_screen.dart';
 import 'package:just_movie/routes/app_routes.dart';
 
 class AppPages {
@@ -9,5 +10,6 @@ class AppPages {
     GetPage(name: AppRoutes.initialRoute, page: HomeScreen.new),
     GetPage(name: AppRoutes.movieDetailRoute, page: MovieDetailScreen.new),
     GetPage(name: AppRoutes.personDetailRoute, page: PersonDetailScreen.new),
+    GetPage(name: AppRoutes.tvDetailRoute, page: TvDetailScreen.new),
   ];
 }

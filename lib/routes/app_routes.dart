@@ -1,5 +1,6 @@
 class AppRoutes {
   static String initialRoute = '/initialRoute';
-  static String movieDetailRoute = '/movieDetail';
-  static String personDetailRoute = "/personDetail";
+  static String movieDetailRoute = '/movieDetailRoute';
+  static String personDetailRoute = "/personDetailRoute";
+  static String tvDetailRoute = "/tvDetailRoute";
 }

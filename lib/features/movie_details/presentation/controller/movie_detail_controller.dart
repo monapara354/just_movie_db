@@ -1,26 +1,34 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:just_movie/core/shared/domain/error/failure.dart';
+import 'package:just_movie/core/utils/generic_enums.dart';
 import 'package:just_movie/core/utils/utils.dart';
 import 'package:just_movie/features/home/domain/entities/movie_info.dart';
+import 'package:just_movie/features/home/domain/entities/tv_info.dart';
 import 'package:just_movie/features/movie_details/domain/entities/cast_crew.dart';
 import 'package:just_movie/features/movie_details/domain/entities/movie_detail.dart';
 import 'package:just_movie/features/movie_details/domain/entities/person.dart';
+import 'package:just_movie/features/movie_details/domain/entities/tv_detail.dart';
 import 'package:just_movie/features/movie_details/domain/usecases/get_cast_detail.dart';
 import 'package:just_movie/features/movie_details/domain/usecases/get_movie_detail.dart';
 import 'package:just_movie/features/movie_details/domain/usecases/get_person_detail.dart';
+import 'package:just_movie/features/movie_details/domain/usecases/get_tv_detail.dart';
 
 class MovieDetailController extends GetxController {
   final GetMovieDetailUC getMovieDetailUC;
   final GetCastDetailUC getCastDetailUC;
   final GetPersonDetailUC getPersonDetailUC;
   final GetPersonMoviesUC getPersonMoviesUC;
+  final GetTVDetailUC getTVDetailUC;
+  final GetPersonTvShowUC getPersonTvShowUC;
 
   MovieDetailController({
     required this.getMovieDetailUC,
     required this.getCastDetailUC,
     required this.getPersonDetailUC,
     required this.getPersonMoviesUC,
+    required this.getTVDetailUC,
+    required this.getPersonTvShowUC,
   });
 
   Rxn<MovieDetail> movieInfo = Rxn<MovieDetail>();
@@ -30,6 +38,9 @@ class MovieDetailController extends GetxController {
   RxBool isInfoLoading = false.obs;
   RxBool isPersonLoading = false.obs;
   RxBool isMovieLoading = false.obs;
+  Rxn<TvDetail> tvInfo = Rxn<TvDetail>();
+  RxList<TvResult> tvList = <TvResult>[].obs;
+  RxBool isTvLoading = false.obs;
 
   Future<void> getMovieDetail(int refId) async {
     movieInfo.value = null;
@@ -57,10 +68,10 @@ class MovieDetailController extends GetxController {
     );
   }
 
-  Future<void> getCastDetail(int refId) async {
+  Future<void> getCastDetail(int refId, Credit credit) async {
     castCrew.value = null;
     final getCastDetailFailedOrSuccess = await getCastDetailUC(
-      GetCastDetailParams(refId: refId),
+      GetCastDetailParams(refId: refId, credit: credit),
     );
     getCastDetailFailedOrSuccess.fold(
       (left) {
@@ -127,6 +138,56 @@ class MovieDetailController extends GetxController {
       movieList.clear();
       movieList.value = right.reversed.toList();
       isMovieLoading.value = false;
+    });
+  }
+
+  Future<void> getTvDetail(int refId) async {
+    tvInfo.value = null;
+    isInfoLoading.value = true;
+    final getTvDetailFailedOrSuccess = await getTVDetailUC(
+      GetTvDetailParams(refId: refId),
+    );
+    getTvDetailFailedOrSuccess.fold(
+      (left) {
+        isInfoLoading.value = false;
+        var error = "";
+        if (left is GeneralFailure) {
+          error = left.errorMessage;
+        }
+        if (left is ServerFailure) {
+          error = left.errorMessage;
+        }
+        showToast(title: error);
+        debugPrint(error);
+      },
+      (right) {
+        isInfoLoading.value = false;
+        tvInfo.value = right;
+      },
+    );
+  }
+
+  Future<void> getPersonTvShow(int refId) async {
+    isTvLoading.value = true;
+    final getPersonTvShowFailedOrSuccess = await getPersonTvShowUC(
+      GetPersonDetailParams(refId: refId),
+    );
+
+    getPersonTvShowFailedOrSuccess.fold((left) {
+      isTvLoading.value = false;
+      var error = "";
+      if (left is GeneralFailure) {
+        error = left.errorMessage;
+      }
+      if (left is ServerFailure) {
+        error = left.errorMessage;
+      }
+
+      debugPrint(error);
+    }, (right) {
+      tvList.clear();
+      tvList.value = right.reversed.toList();
+      isTvLoading.value = false;
     });
   }
 }

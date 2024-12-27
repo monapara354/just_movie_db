@@ -1,10 +1,10 @@
 /// A pure Dart utility library that checks for an internet connection
 /// by opening a socket to a list of specified addresses, each with individual
 /// port and timeout. Defaults are provided for convenience.
-library;
+library data_connection_checker;
 
-import "dart:async";
-import "dart:io";
+import 'dart:async';
+import 'dart:io';
 
 /// Represents the status of the data connection.
 /// Returned by [DataConnectionChecker.connectionStatus]
@@ -82,9 +82,9 @@ class DataConnectionChecker {
   /// | 208.67.222.222 | OpenDNS    | https://use.opendns.com/                        |
   /// | 208.67.220.220 | OpenDNS    | https://use.opendns.com/                        |
   static final List<AddressCheckOptions> defaultAddresses = List.unmodifiable([
-    AddressCheckOptions(InternetAddress("1.1.1.1")),
-    AddressCheckOptions(InternetAddress("8.8.4.4")),
-    AddressCheckOptions(InternetAddress("208.67.222.222")),
+    AddressCheckOptions(InternetAddress('1.1.1.1')),
+    AddressCheckOptions(InternetAddress('8.8.4.4')),
+    AddressCheckOptions(InternetAddress('208.67.222.222')),
   ]);
 
   /// A list of internet addresses (with port and timeout) to ping.

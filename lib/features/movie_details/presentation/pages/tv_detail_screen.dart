@@ -4,14 +4,13 @@ import 'package:get/get.dart';
 import 'package:just_movie/core/constants/image_constants.dart';
 import 'package:just_movie/core/constants/theme_constants.dart';
 import 'package:just_movie/core/services/api_urls.dart';
-import 'package:just_movie/core/shared/domain/methods/methods.dart';
 import 'package:just_movie/features/movie_details/presentation/controller/movie_detail_controller.dart';
-import 'package:just_movie/features/movie_details/presentation/widgets/movie_info_widget.dart';
+import 'package:just_movie/features/movie_details/presentation/widgets/tv_info_widget.dart';
 import 'package:shimmer/shimmer.dart';
 import 'package:sizer/sizer.dart';
 
-class MovieDetailScreen extends StatelessWidget {
-  MovieDetailScreen({super.key});
+class TvDetailScreen extends StatelessWidget {
+  TvDetailScreen({super.key});
 
   final movieDetailController = Get.find<MovieDetailController>();
 
@@ -19,10 +18,11 @@ class MovieDetailScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Obx(() {
-        final movieInfo = movieDetailController.movieInfo.value;
+        final tvInfo = movieDetailController.tvInfo.value;
+
         final castCrew = movieDetailController.castCrew.value;
         return Visibility(
-            visible: movieInfo != null,
+            visible: tvInfo != null,
             replacement: !movieDetailController.isInfoLoading.value
                 ? const Center(
                     child: Text('No data found'),
@@ -34,12 +34,11 @@ class MovieDetailScreen extends StatelessWidget {
               children: [
                 CachedNetworkImage(
                   imageUrl:
-                      '${EndPoints.imageBaseUrl500}${movieInfo?.backdropPath}',
+                      '${EndPoints.imageBaseUrl500}${tvInfo?.backdropPath}',
                   placeholder: (context, url) {
                     return Center(
-                        child: Container(
-                      color: ThemeConstants.clrBlack100,
-                    ));
+                      child: Container(color: ThemeConstants.clrBlack100),
+                    );
                   },
                   errorWidget: (context, url, error) {
                     return Container(
@@ -86,7 +85,7 @@ class MovieDetailScreen extends StatelessWidget {
                                   clipBehavior: Clip.hardEdge,
                                   child: CachedNetworkImage(
                                     imageUrl:
-                                        '${EndPoints.imageBaseUrl300}${movieInfo?.posterPath}',
+                                        '${EndPoints.imageBaseUrl300}${tvInfo?.posterPath}',
                                     // width: 35.w,
                                     // height: 25.h,
                                     width: 95.sp,
@@ -130,23 +129,12 @@ class MovieDetailScreen extends StatelessWidget {
                                       SizedBox(
                                         width: 50.w,
                                         child: Text(
-                                          movieInfo?.title ?? "",
+                                          tvInfo?.name ?? "",
                                           style: TextStyle(
                                             fontSize: 19.sp,
                                             color: ThemeConstants.clrWhite,
                                           ),
                                           overflow: TextOverflow.visible,
-                                        ),
-                                      ),
-                                      Container(
-                                        margin: const EdgeInsets.only(top: 5),
-                                        child: Text(
-                                          durationToString(
-                                              movieInfo?.runtime ?? 0),
-                                          style: TextStyle(
-                                            fontSize: 12.sp,
-                                            color: ThemeConstants.clrWhite,
-                                          ),
                                         ),
                                       ),
                                       Container(
@@ -160,10 +148,11 @@ class MovieDetailScreen extends StatelessWidget {
                                             ),
                                             Container(
                                               margin: const EdgeInsets.only(
-                                                  left: 8),
+                                                left: 8,
+                                              ),
                                               alignment: Alignment.center,
                                               child: Text(
-                                                movieInfo?.voteAverage
+                                                tvInfo?.voteAverage
                                                         .toString() ??
                                                     "",
                                                 style: TextStyle(
@@ -183,9 +172,9 @@ class MovieDetailScreen extends StatelessWidget {
                               ],
                             ),
                           ),
-                          if (movieInfo != null)
-                            MovieInfoWidget(
-                              movieInfo: movieInfo,
+                          if (tvInfo != null)
+                            TvInfoWidget(
+                              tvInfo: tvInfo,
                               castCrew: castCrew,
                             ),
                           const SizedBox(height: 15),

@@ -6,6 +6,10 @@ class ApiUrl {
   static const credits = "/credits";
   static const person = "person/";
   static const movieCredits = "/movie_credits";
+  static const trendingTV = "trending/tv/day";
+  static const discoverTV = "discover/tv";
+  static const tv = "tv/";
+  static const tvCredits = "/tv_credits";
 }
 
 class EndPoints {

@@ -1,18 +1,28 @@
 import 'package:just_movie/features/home/domain/entities/movie_info.dart';
 
 class MovieInfoModel extends MovieInfo {
-
-
-  MovieInfoModel({super.adult, super.backdropPath, super.genreIds, super.id,
-      super.originalLanguage, super.originalTitle, super.overview, super.popularity,
-      super.posterPath, super.releaseDate, super.title, super.video,
-      super.voteAverage, super.voteCount});
+  MovieInfoModel({
+    super.adult,
+    super.backdropPath,
+    super.genreIds,
+    super.id,
+    super.originalLanguage,
+    super.originalTitle,
+    super.overview,
+    super.popularity,
+    super.posterPath,
+    super.releaseDate,
+    super.title,
+    super.video,
+    super.voteAverage,
+    super.voteCount,
+  });
 
   MovieInfoModel.fromJson(Map<String, dynamic> json) {
     adult = json["adult"];
     backdropPath = json["backdrop_path"];
     genreIds =
-    json["genre_ids"] == null ? null : List<int>.from(json["genre_ids"]);
+        json["genre_ids"] == null ? null : List<int>.from(json["genre_ids"]);
     id = json["id"];
     originalLanguage = json["original_language"];
     originalTitle = json["original_title"];

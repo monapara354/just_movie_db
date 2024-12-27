@@ -1,6 +1,7 @@
 import 'package:just_movie/core/shared/domain/usecase/usecase.dart';
 import 'package:just_movie/core/utils/generic_typedefs.dart';
 import 'package:just_movie/features/home/domain/entities/movie_info.dart';
+import 'package:just_movie/features/home/domain/entities/tv_info.dart';
 import 'package:just_movie/features/movie_details/domain/entities/person.dart';
 import 'package:just_movie/features/movie_details/domain/repositories/movie_detail_repository.dart';
 
@@ -28,5 +29,15 @@ class GetPersonMoviesUC
   @override
   EitherDynamic<List<MovieInfo>> call(GetPersonDetailParams params) {
     return movieDetailRepository.getPersonMovies(params);
+  }
+}
+
+class GetPersonTvShowUC extends UseCase<List<TvResult>, GetPersonDetailParams> {
+  final MovieDetailRepository movieDetailRepository;
+
+  GetPersonTvShowUC({required this.movieDetailRepository});
+  @override
+  EitherDynamic<List<TvResult>> call(GetPersonDetailParams params) {
+    return movieDetailRepository.getPersonTvShow(params);
   }
 }
