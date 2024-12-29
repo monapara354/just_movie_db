@@ -43,8 +43,7 @@ class TvList extends StatelessWidget {
                         margin: const EdgeInsets.only(right: 12),
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(10),
-                          color: ThemeConstants
-                              .clrLightBlueGrey, //ThemeConstants.clrBlack
+                          color: ThemeConstants.clrLightBlueGrey,
                         ),
                       ),
                     );
@@ -63,8 +62,7 @@ class TvList extends StatelessWidget {
                           margin: const EdgeInsets.only(right: 12),
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(10),
-                            color: ThemeConstants
-                                .clrLightBlueGrey, //ThemeConstants.clrBlack
+                            color: ThemeConstants.clrLightBlueGrey,
                           ),
                           clipBehavior: Clip.hardEdge,
                           child: GestureDetector(
@@ -144,8 +142,8 @@ class TvList extends StatelessWidget {
                     ).toList(),
                   ),
                 )
-              : Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 10),
+              : SizedBox(
+                  height: 150,
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [

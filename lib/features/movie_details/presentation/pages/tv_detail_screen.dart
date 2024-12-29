@@ -5,6 +5,7 @@ import 'package:just_movie/core/constants/image_constants.dart';
 import 'package:just_movie/core/constants/theme_constants.dart';
 import 'package:just_movie/core/services/api_urls.dart';
 import 'package:just_movie/features/movie_details/presentation/controller/movie_detail_controller.dart';
+import 'package:just_movie/features/movie_details/presentation/widgets/no_file_widget.dart';
 import 'package:just_movie/features/movie_details/presentation/widgets/tv_info_widget.dart';
 import 'package:shimmer/shimmer.dart';
 import 'package:sizer/sizer.dart';
@@ -24,9 +25,7 @@ class TvDetailScreen extends StatelessWidget {
         return Visibility(
             visible: tvInfo != null,
             replacement: !movieDetailController.isInfoLoading.value
-                ? const Center(
-                    child: Text('No data found'),
-                  )
+                ? const NoFileWidget()
                 : const Center(
                     child: CircularProgressIndicator(),
                   ),

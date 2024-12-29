@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:just_movie/core/constants/string_constants.dart';
 import 'package:just_movie/features/home/presentation/controller/home_controller.dart';
+import 'package:just_movie/features/home/presentation/widgets/custom_slider_movie.dart';
 import 'package:just_movie/features/home/presentation/widgets/movie_list.dart';
 import 'package:just_movie/features/home/presentation/widgets/title_text.dart';
 import 'package:just_movie/features/home/presentation/widgets/tv_list.dart';
@@ -27,6 +28,11 @@ class HomeScreen extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
+                const SizedBox(height: 10),
+                CustomSliderMovie(
+                  moviesList: homeController.upcomingMovieList,
+                  isLoading: homeController.isLoading.value,
+                ),
                 TitleText(
                   title: StringConstants.strNowPlaying,
                   isLoading: homeController.isLoading.value,
@@ -38,7 +44,7 @@ class HomeScreen extends StatelessWidget {
                     homeController.getNowPlayingMovie();
                   },
                 ),
-                TitleText(
+                /*  TitleText(
                   title: StringConstants.strUpcoming,
                   isLoading: homeController.isLoading.value,
                 ),
@@ -48,7 +54,7 @@ class HomeScreen extends StatelessWidget {
                   onRefresh: () {
                     homeController.getUpcomingMovie();
                   },
-                ),
+                ),  */
                 TitleText(
                   title: StringConstants.strPopular,
                   isLoading: homeController.isLoading.value,

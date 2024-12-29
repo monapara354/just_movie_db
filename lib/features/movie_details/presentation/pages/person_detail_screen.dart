@@ -8,6 +8,7 @@ import 'package:just_movie/core/services/api_urls.dart';
 import 'package:just_movie/features/home/presentation/widgets/movie_list.dart';
 import 'package:just_movie/features/home/presentation/widgets/tv_list.dart';
 import 'package:just_movie/features/movie_details/presentation/controller/movie_detail_controller.dart';
+import 'package:just_movie/features/movie_details/presentation/widgets/no_file_widget.dart';
 import 'package:shimmer/shimmer.dart';
 
 class PersonDetailScreen extends StatelessWidget {
@@ -31,9 +32,7 @@ class PersonDetailScreen extends StatelessWidget {
         return Visibility(
           visible: personData != null,
           replacement: !movieDetailController.isPersonLoading.value
-              ? const Center(
-                  child: Text('No data found'),
-                )
+              ? const NoFileWidget(isBack: false)
               : const Center(child: CircularProgressIndicator()),
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 12),
@@ -116,6 +115,9 @@ class PersonDetailScreen extends StatelessWidget {
                 MovieList(
                   moviesList: movieDetailController.movieList,
                   isLoading: movieDetailController.isMovieLoading.value,
+                  onRefresh: () {
+                    movieDetailController.getPersonMovie(personData?.id ?? 0);
+                  },
                 ),
                 Container(
                   alignment: Alignment.centerLeft,
@@ -129,10 +131,16 @@ class PersonDetailScreen extends StatelessWidget {
                     ),
                   ),
                 ),
-                TvList(
-                  tvList: movieDetailController.tvList,
-                  isLoading: movieDetailController.isTvLoading.value,
-                ),
+                Obx(() {
+                  return TvList(
+                    tvList: movieDetailController.tvList,
+                    isLoading: movieDetailController.isTvLoading.value,
+                    onRefresh: () {
+                      movieDetailController
+                          .getPersonTvShow(personData?.id ?? 0);
+                    },
+                  );
+                }),
               ],
             ),
           ),
