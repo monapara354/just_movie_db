@@ -1,15 +1,15 @@
-import 'package:cached_network_image/cached_network_image.dart';
-import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-import 'package:just_movie/core/constants/image_constants.dart';
-import 'package:just_movie/core/constants/string_constants.dart';
-import 'package:just_movie/core/constants/theme_constants.dart';
-import 'package:just_movie/core/services/api_urls.dart';
-import 'package:just_movie/features/home/presentation/widgets/movie_list.dart';
-import 'package:just_movie/features/home/presentation/widgets/tv_list.dart';
-import 'package:just_movie/features/movie_details/presentation/controller/movie_detail_controller.dart';
-import 'package:just_movie/features/movie_details/presentation/widgets/no_file_widget.dart';
-import 'package:shimmer/shimmer.dart';
+import "package:cached_network_image/cached_network_image.dart";
+import "package:flutter/material.dart";
+import "package:get/get.dart";
+import "package:just_movie/core/constants/image_constants.dart";
+import "package:just_movie/core/constants/string_constants.dart";
+import "package:just_movie/core/constants/theme_constants.dart";
+import "package:just_movie/core/services/api_urls.dart";
+import "package:just_movie/features/home/presentation/widgets/movie_list.dart";
+import "package:just_movie/features/home/presentation/widgets/tv_list.dart";
+import "package:just_movie/features/movie_details/presentation/controller/movie_detail_controller.dart";
+import "package:just_movie/features/movie_details/presentation/widgets/no_file_widget.dart";
+import "package:shimmer/shimmer.dart";
 
 class PersonDetailScreen extends StatelessWidget {
   PersonDetailScreen({super.key});

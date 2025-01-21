@@ -1,17 +1,13 @@
-import 'package:cached_network_image/cached_network_image.dart';
-import 'package:flutter/material.dart';
-import 'package:just_movie/core/constants/image_constants.dart';
-import 'package:just_movie/core/constants/theme_constants.dart';
-import 'package:just_movie/core/services/api_urls.dart';
-import 'package:sizer/sizer.dart';
+import "package:cached_network_image/cached_network_image.dart";
+import "package:flutter/material.dart";
+import "package:just_movie/core/constants/image_constants.dart";
+import "package:just_movie/core/constants/theme_constants.dart";
+import "package:just_movie/core/services/api_urls.dart";
+import "package:sizer/sizer.dart";
 
 class CastWidget extends StatelessWidget {
   const CastWidget({
-    super.key,
-    required this.onTap,
-    required this.profilePath,
-    required this.name,
-    required this.characterName,
+    required this.onTap, required this.profilePath, required this.name, required this.characterName, super.key,
   });
 
   final Function() onTap;
@@ -42,7 +38,7 @@ class CastWidget extends StatelessWidget {
               ),
               clipBehavior: Clip.hardEdge,
               child: CachedNetworkImage(
-                imageUrl: '${EndPoints.imageBaseUrl200}$profilePath',
+                imageUrl: "${EndPoints.imageBaseUrl200}$profilePath",
                 errorWidget: (context, url, error) {
                   return Image.asset(
                     ImageConstants.imgUserPlace,

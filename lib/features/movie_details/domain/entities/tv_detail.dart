@@ -1,36 +1,4 @@
 class TvDetail {
-  bool? adult;
-  String? backdropPath;
-  List<dynamic>? createdBy;
-  List<dynamic>? episodeRunTime;
-  DateTime? firstAirDate;
-  List<Genre>? genres;
-  String? homepage;
-  int? id;
-  bool? inProduction;
-  List<String>? languages;
-  DateTime? lastAirDate;
-  LastEpisodeToAir? lastEpisodeToAir;
-  String? name;
-  dynamic nextEpisodeToAir;
-  List<Network>? networks;
-  int? numberOfEpisodes;
-  int? numberOfSeasons;
-  List<String>? originCountry;
-  String? originalLanguage;
-  String? originalName;
-  String? overview;
-  double? popularity;
-  String? posterPath;
-  List<Network>? productionCompanies;
-  List<ProductionCountry>? productionCountries;
-  List<Season>? seasons;
-  List<SpokenLanguage>? spokenLanguages;
-  String? status;
-  String? tagline;
-  String? type;
-  double? voteAverage;
-  int? voteCount;
 
   TvDetail({
     this.adult,
@@ -66,32 +34,51 @@ class TvDetail {
     this.voteAverage,
     this.voteCount,
   });
+  bool? adult;
+  String? backdropPath;
+  List<dynamic>? createdBy;
+  List<dynamic>? episodeRunTime;
+  DateTime? firstAirDate;
+  List<Genre>? genres;
+  String? homepage;
+  int? id;
+  bool? inProduction;
+  List<String>? languages;
+  DateTime? lastAirDate;
+  LastEpisodeToAir? lastEpisodeToAir;
+  String? name;
+  dynamic nextEpisodeToAir;
+  List<Network>? networks;
+  int? numberOfEpisodes;
+  int? numberOfSeasons;
+  List<String>? originCountry;
+  String? originalLanguage;
+  String? originalName;
+  String? overview;
+  double? popularity;
+  String? posterPath;
+  List<Network>? productionCompanies;
+  List<ProductionCountry>? productionCountries;
+  List<Season>? seasons;
+  List<SpokenLanguage>? spokenLanguages;
+  String? status;
+  String? tagline;
+  String? type;
+  double? voteAverage;
+  int? voteCount;
 }
 
 class Genre {
-  int? id;
-  String? name;
 
   Genre({
     this.id,
     this.name,
   });
+  int? id;
+  String? name;
 }
 
 class LastEpisodeToAir {
-  int? id;
-  String? name;
-  String? overview;
-  double? voteAverage;
-  int? voteCount;
-  DateTime? airDate;
-  int? episodeNumber;
-  String? episodeType;
-  String? productionCode;
-  int? runtime;
-  int? seasonNumber;
-  int? showId;
-  String? stillPath;
 
   LastEpisodeToAir({
     this.id,
@@ -108,13 +95,22 @@ class LastEpisodeToAir {
     this.showId,
     this.stillPath,
   });
+  int? id;
+  String? name;
+  String? overview;
+  double? voteAverage;
+  int? voteCount;
+  DateTime? airDate;
+  int? episodeNumber;
+  String? episodeType;
+  String? productionCode;
+  int? runtime;
+  int? seasonNumber;
+  int? showId;
+  String? stillPath;
 }
 
 class Network {
-  int? id;
-  String? logoPath;
-  String? name;
-  String? originCountry;
 
   Network({
     this.id,
@@ -122,27 +118,23 @@ class Network {
     this.name,
     this.originCountry,
   });
+  int? id;
+  String? logoPath;
+  String? name;
+  String? originCountry;
 }
 
 class ProductionCountry {
-  String? iso31661;
-  String? name;
 
   ProductionCountry({
     this.iso31661,
     this.name,
   });
+  String? iso31661;
+  String? name;
 }
 
 class Season {
-  DateTime? airDate;
-  int? episodeCount;
-  int? id;
-  String? name;
-  String? overview;
-  String? posterPath;
-  int? seasonNumber;
-  double? voteAverage;
 
   Season({
     this.airDate,
@@ -154,16 +146,24 @@ class Season {
     this.seasonNumber,
     this.voteAverage,
   });
+  DateTime? airDate;
+  int? episodeCount;
+  int? id;
+  String? name;
+  String? overview;
+  String? posterPath;
+  int? seasonNumber;
+  double? voteAverage;
 }
 
 class SpokenLanguage {
-  String? englishName;
-  String? iso6391;
-  String? name;
 
   SpokenLanguage({
     this.englishName,
     this.iso6391,
     this.name,
   });
+  String? englishName;
+  String? iso6391;
+  String? name;
 }

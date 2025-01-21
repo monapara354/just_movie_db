@@ -1,6 +1,6 @@
-import 'package:just_movie/features/movie_details/domain/entities/tv_detail.dart';
+import "dart:convert";
 
-import 'dart:convert';
+import "package:just_movie/features/movie_details/domain/entities/tv_detail.dart";
 
 TvDetail tvDetailFromJson(String str) =>
     TvDetailModel.fromJson(json.decode(str));
@@ -58,7 +58,7 @@ class TvDetailModel extends TvDetail {
         genres: json["genres"] == null
             ? []
             : List<Genre>.from(
-                json["genres"]!.map((x) => GenreModel.fromJson(x))),
+                json["genres"]!.map((x) => GenreModel.fromJson(x)),),
         homepage: json["homepage"],
         id: json["id"],
         inProduction: json["in_production"],
@@ -76,7 +76,7 @@ class TvDetailModel extends TvDetail {
         networks: json["networks"] == null
             ? []
             : List<Network>.from(
-                json["networks"]!.map((x) => NetworkModel.fromJson(x))),
+                json["networks"]!.map((x) => NetworkModel.fromJson(x)),),
         numberOfEpisodes: json["number_of_episodes"],
         numberOfSeasons: json["number_of_seasons"],
         originCountry: json["origin_country"] == null
@@ -90,19 +90,19 @@ class TvDetailModel extends TvDetail {
         productionCompanies: json["production_companies"] == null
             ? []
             : List<Network>.from(json["production_companies"]!
-                .map((x) => NetworkModel.fromJson(x))),
+                .map((x) => NetworkModel.fromJson(x)),),
         productionCountries: json["production_countries"] == null
             ? []
             : List<ProductionCountry>.from(json["production_countries"]!
-                .map((x) => ProductionCountryModel.fromJson(x))),
+                .map((x) => ProductionCountryModel.fromJson(x)),),
         seasons: json["seasons"] == null
             ? []
             : List<Season>.from(
-                json["seasons"]!.map((x) => SeasonModel.fromJson(x))),
+                json["seasons"]!.map((x) => SeasonModel.fromJson(x)),),
         spokenLanguages: json["spoken_languages"] == null
             ? []
             : List<SpokenLanguage>.from(json["spoken_languages"]!
-                .map((x) => SpokenLanguageModel.fromJson(x))),
+                .map((x) => SpokenLanguageModel.fromJson(x)),),
         status: json["status"],
         tagline: json["tagline"],
         type: json["type"],

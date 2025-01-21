@@ -1,24 +1,21 @@
-import 'package:cached_network_image/cached_network_image.dart';
-import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-import 'package:just_movie/core/constants/image_constants.dart';
-import 'package:just_movie/core/constants/string_constants.dart';
-import 'package:just_movie/core/constants/theme_constants.dart';
-import 'package:just_movie/core/services/api_urls.dart';
-import 'package:just_movie/features/movie_details/domain/entities/cast_crew.dart';
-import 'package:just_movie/features/movie_details/domain/entities/tv_detail.dart';
-import 'package:just_movie/features/movie_details/presentation/controller/movie_detail_controller.dart';
-import 'package:just_movie/features/movie_details/presentation/widgets/cast_widget.dart';
-import 'package:just_movie/features/movie_details/presentation/widgets/common_container.dart';
-import 'package:just_movie/features/movie_details/presentation/widgets/info_row.dart';
-import 'package:just_movie/routes/app_routes.dart';
-import 'package:sizer/sizer.dart';
+import "package:cached_network_image/cached_network_image.dart";
+import "package:flutter/material.dart";
+import "package:get/get.dart";
+import "package:just_movie/core/constants/string_constants.dart";
+import "package:just_movie/core/constants/theme_constants.dart";
+import "package:just_movie/core/services/api_urls.dart";
+import "package:just_movie/features/movie_details/domain/entities/cast_crew.dart";
+import "package:just_movie/features/movie_details/domain/entities/tv_detail.dart";
+import "package:just_movie/features/movie_details/presentation/controller/movie_detail_controller.dart";
+import "package:just_movie/features/movie_details/presentation/widgets/cast_widget.dart";
+import "package:just_movie/features/movie_details/presentation/widgets/common_container.dart";
+import "package:just_movie/features/movie_details/presentation/widgets/info_row.dart";
+import "package:just_movie/routes/app_routes.dart";
+import "package:sizer/sizer.dart";
 
 class TvInfoWidget extends StatelessWidget {
   const TvInfoWidget({
-    super.key,
-    required this.tvInfo,
-    required this.castCrew,
+    required this.tvInfo, required this.castCrew, super.key,
   });
 
   final TvDetail tvInfo;
@@ -56,7 +53,7 @@ class TvInfoWidget extends StatelessWidget {
             style: TextStyle(
                 color: Color.fromARGB(255, 131, 175, 195),
                 fontWeight: FontWeight.w500,
-                fontSize: 15),
+                fontSize: 15,),
             overflow: TextOverflow.ellipsis,
           ),
         ),
@@ -98,7 +95,6 @@ class TvInfoWidget extends StatelessWidget {
           ),
         ),
         Row(
-          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Container(
               alignment: Alignment.topLeft,
@@ -167,11 +163,10 @@ class TvInfoWidget extends StatelessWidget {
         ),
         InfoRow(
             title: StringConstants.strSeasons,
-            value: tvInfo.numberOfSeasons.toString()),
+            value: tvInfo.numberOfSeasons.toString(),),
         if (castCrew != null)
           Visibility(
             visible: castCrew?.cast != null && castCrew!.cast!.isNotEmpty,
-            replacement: const SizedBox.shrink(),
             child: Column(
               children: [
                 Container(
@@ -211,7 +206,7 @@ class TvInfoWidget extends StatelessWidget {
                       );
                     },
                   ),
-                )
+                ),
               ],
             ),
           ),

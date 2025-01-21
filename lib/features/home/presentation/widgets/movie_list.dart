@@ -1,25 +1,20 @@
-import 'package:cached_network_image/cached_network_image.dart';
-import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-import 'package:just_movie/core/constants/image_constants.dart';
-import 'package:just_movie/core/constants/theme_constants.dart';
-import 'package:just_movie/core/services/api_urls.dart';
-import 'package:just_movie/core/utils/generic_enums.dart';
-import 'package:just_movie/features/home/domain/entities/movie_info.dart';
-import 'package:just_movie/features/movie_details/presentation/controller/movie_detail_controller.dart';
-import 'package:just_movie/routes/app_routes.dart';
-import 'package:shimmer/shimmer.dart';
-import 'package:sizer/sizer.dart';
+import "package:flutter/material.dart";
+import "package:get/get.dart";
+import "package:just_movie/core/constants/theme_constants.dart";
+import "package:just_movie/core/utils/generic_enums.dart";
+import "package:just_movie/features/home/domain/entities/movie_info.dart";
+import "package:just_movie/features/home/presentation/widgets/common_movie_card.dart";
+import "package:just_movie/features/movie_details/presentation/controller/movie_detail_controller.dart";
+import "package:just_movie/routes/app_routes.dart";
+import "package:shimmer/shimmer.dart";
 
 class MovieList extends StatelessWidget {
   MovieList({
-    super.key,
-    required this.moviesList,
-    required this.isLoading,
+    required this.moviesList, required this.isLoading, super.key,
     this.onRefresh,
   });
 
-  final List<MovieInfo> moviesList;
+  final List<MovieResult> moviesList;
   final bool isLoading;
   final Function()? onRefresh;
 
@@ -44,8 +39,7 @@ class MovieList extends StatelessWidget {
                         margin: const EdgeInsets.only(right: 12),
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(10),
-                          color: ThemeConstants
-                              .clrLightBlueGrey, //ThemeConstants.clrBlack
+                          color: ThemeConstants.clrLightBlueGrey,
                         ),
                       ),
                     );
@@ -59,105 +53,43 @@ class MovieList extends StatelessWidget {
                   child: Row(
                     children: moviesList.map(
                       (movie) {
-                        return Container(
-                          width: 115,
-                          margin: const EdgeInsets.only(right: 12),
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(10),
-                            color: ThemeConstants
-                                .clrLightBlueGrey, //ThemeConstants.clrBlack
-                          ),
-                          clipBehavior: Clip.hardEdge,
-                          child: GestureDetector(
-                            onTap: () {
-                              movieDetailController.getMovieDetail(
-                                movie.id ?? 0,
-                              );
-                              movieDetailController.getCastDetail(
-                                movie.id ?? 0,
-                                Credit.movie,
-                              );
-                              Get.toNamed(AppRoutes.movieDetailRoute);
-                            },
-                            child: Column(
-                              children: [
-                                SizedBox(
-                                  width: 115,
-                                  height: 150,
-                                  child: CachedNetworkImage(
-                                    imageUrl:
-                                        '${EndPoints.imageBaseUrl200}${movie.posterPath}',
-                                    placeholder: (context, url) {
-                                      return Shimmer.fromColors(
-                                        baseColor:
-                                            ThemeConstants.clrLightBlueGrey,
-                                        highlightColor:
-                                            ThemeConstants.clrBlack100,
-                                        child: Container(
-                                          width: 115,
-                                          height: 150,
-                                          decoration: BoxDecoration(
-                                            borderRadius:
-                                                BorderRadius.circular(10),
-                                            color:
-                                                ThemeConstants.clrLightBlueGrey,
-                                          ),
-                                        ),
-                                      );
-                                    },
-                                    errorWidget: (context, url, error) {
-                                      return Image.asset(
-                                        ImageConstants.imgPosterPlace,
-                                        fit: BoxFit.cover,
-                                      );
-                                    },
-                                    width: 115,
-                                    height: 150,
-                                    fit: BoxFit.fill,
-                                  ),
-                                ),
-                                Padding(
-                                  padding: const EdgeInsets.only(
-                                    top: 5,
-                                    bottom: 5,
-                                    left: 2,
-                                    right: 2,
-                                  ),
-                                  child: Text(
-                                    movie.title ?? '',
-                                    overflow: TextOverflow.ellipsis,
-                                    textAlign: TextAlign.center,
-                                    softWrap: true,
-                                    style: TextStyle(
-                                      fontSize: 10.sp,
-                                      color: ThemeConstants.clrWhite,
-                                    ),
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
+                        return CommonMovieCard(
+                          onTap: () {
+                            movieDetailController..getMovieDetail(
+                              movie.id ?? 0,
+                            )
+                            ..getCastDetail(
+                              movie.id ?? 0,
+                              Credit.movie,
+                            );
+                            Get.toNamed(AppRoutes.movieDetailRoute);
+                          },
+                          imagePoster: movie.posterPath,
+                          name: movie.title,
                         );
                       },
                     ).toList(),
                   ),
                 )
-              : Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    IconButton(
-                      onPressed: onRefresh,
-                      padding: const EdgeInsets.all(18),
-                      style: IconButton.styleFrom(
-                        backgroundColor:
-                            ThemeConstants.clrLightBlueGrey.withOpacity(0.5),
+              : SizedBox(
+                  height: 150,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      IconButton(
+                        onPressed: onRefresh,
+                        padding: const EdgeInsets.all(18),
+                        style: IconButton.styleFrom(
+                          backgroundColor:
+                              ThemeConstants.clrLightBlueGrey.withValues(alpha: 0.5),
+                        ),
+                        icon: const Icon(
+                          Icons.refresh,
+                          color: ThemeConstants.clrAmberYellow,
+                        ),
                       ),
-                      icon: const Icon(
-                        Icons.refresh,
-                        color: ThemeConstants.clrAmberYellow,
-                      ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
     );
   }

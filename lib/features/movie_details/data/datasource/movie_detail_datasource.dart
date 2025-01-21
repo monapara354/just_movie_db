@@ -1,26 +1,26 @@
-import 'package:get/get.dart';
-import 'package:just_movie/core/constants/string_constants.dart';
-import 'package:just_movie/core/services/api_service.dart';
-import 'package:just_movie/core/services/api_urls.dart';
-import 'package:just_movie/core/shared/domain/error/exception.dart';
-import 'package:just_movie/core/utils/generic_enums.dart';
-import 'package:just_movie/features/home/data/model/movie_info_model.dart';
-import 'package:just_movie/features/home/data/model/tv_info_model.dart';
-import 'package:just_movie/features/home/domain/entities/tv_info.dart';
-import 'package:just_movie/features/movie_details/data/model/cast_crew_model.dart';
-import 'package:just_movie/features/movie_details/data/model/movie_detail_model.dart';
-import 'package:just_movie/features/movie_details/data/model/person_model.dart';
-import 'package:just_movie/features/movie_details/data/model/tv_detail_model.dart';
-import 'package:just_movie/features/movie_details/domain/usecases/get_cast_detail.dart';
-import 'package:just_movie/features/movie_details/domain/usecases/get_movie_detail.dart';
-import 'package:just_movie/features/movie_details/domain/usecases/get_person_detail.dart';
-import 'package:just_movie/features/movie_details/domain/usecases/get_tv_detail.dart';
+import "package:get/get.dart";
+import "package:just_movie/core/constants/string_constants.dart";
+import "package:just_movie/core/services/api_service.dart";
+import "package:just_movie/core/services/api_urls.dart";
+import "package:just_movie/core/shared/domain/error/exception.dart";
+import "package:just_movie/core/utils/generic_enums.dart";
+import "package:just_movie/features/home/data/model/movie_info_model.dart";
+import "package:just_movie/features/home/data/model/tv_info_model.dart";
+import "package:just_movie/features/home/domain/entities/tv_info.dart";
+import "package:just_movie/features/movie_details/data/model/cast_crew_model.dart";
+import "package:just_movie/features/movie_details/data/model/movie_detail_model.dart";
+import "package:just_movie/features/movie_details/data/model/person_model.dart";
+import "package:just_movie/features/movie_details/data/model/tv_detail_model.dart";
+import "package:just_movie/features/movie_details/domain/usecases/get_cast_detail.dart";
+import "package:just_movie/features/movie_details/domain/usecases/get_movie_detail.dart";
+import "package:just_movie/features/movie_details/domain/usecases/get_person_detail.dart";
+import "package:just_movie/features/movie_details/domain/usecases/get_tv_detail.dart";
 
 abstract class MovieDetailDatasource {
   Future<MovieDetailModel> getMovieDetail(GetMovieDetailParams params);
   Future<CastCrewModel> getCastDetail(GetCastDetailParams params);
   Future<PersonModel> getPersonDetail(GetPersonDetailParams params);
-  Future<List<MovieInfoModel>> getPersonMovies(GetPersonDetailParams params);
+  Future<List<MovieResultModel>> getPersonMovies(GetPersonDetailParams params);
   Future<TvDetailModel> getTvDetail(GetTvDetailParams params);
   Future<List<TvResult>> getPersonTvShow(GetPersonDetailParams params);
 }
@@ -31,7 +31,6 @@ class MovieDetailDatasourceImpl extends MovieDetailDatasource {
   @override
   Future<MovieDetailModel> getMovieDetail(GetMovieDetailParams params) async {
     try {
-      print('aaaa-----${params.refId}');
 
       final response = await apiService.getRequest(
         path: "${ApiUrl.movie}${params.refId}",
@@ -50,7 +49,6 @@ class MovieDetailDatasourceImpl extends MovieDetailDatasource {
   @override
   Future<CastCrewModel> getCastDetail(GetCastDetailParams params) async {
     try {
-      print('aaaa-----${params.refId}');
 
       final response = await apiService.getRequest(
         path:
@@ -87,17 +85,17 @@ class MovieDetailDatasourceImpl extends MovieDetailDatasource {
   }
 
   @override
-  Future<List<MovieInfoModel>> getPersonMovies(
+  Future<List<MovieResultModel>> getPersonMovies(
     GetPersonDetailParams params,
   ) async {
     try {
-      List<MovieInfoModel> movieList = [];
+      final List<MovieResultModel> movieList = [];
       final response = await apiService.getRequest(
         path: "${ApiUrl.person}${params.refId}${ApiUrl.movieCredits}",
       );
       if (response.statusCode == 200) {
-        for (var d in response.data["cast"]) {
-          final movie = MovieInfoModel.fromJson(d);
+        for (final d in response.data["cast"]) {
+          final movie = MovieResultModel.fromJson(d);
           movieList.add(movie);
         }
       }
@@ -110,7 +108,6 @@ class MovieDetailDatasourceImpl extends MovieDetailDatasource {
   @override
   Future<TvDetailModel> getTvDetail(GetTvDetailParams params) async {
     try {
-      print('tv id-----${params.refId}');
 
       final response = await apiService.getRequest(
         path: "${ApiUrl.tv}${params.refId}",
@@ -129,12 +126,12 @@ class MovieDetailDatasourceImpl extends MovieDetailDatasource {
   @override
   Future<List<TvResult>> getPersonTvShow(GetPersonDetailParams params) async {
     try {
-      List<TvResult> tvList = [];
+      final List<TvResult> tvList = [];
       final response = await apiService.getRequest(
         path: "${ApiUrl.person}${params.refId}${ApiUrl.tvCredits}",
       );
       if (response.statusCode == 200) {
-        for (var d in response.data["cast"]) {
+        for (final d in response.data["cast"]) {
           final tv = TvResultModel.fromJson(d);
           tvList.add(tv);
         }

@@ -21,7 +21,7 @@ class CheckInternetController extends GetxController {
 
   void init() {
     connectivity.checkConnectivity().then((result) async {
-      if (result == ConnectivityResult.none) {
+      if (result.contains(ConnectivityResult.none)) {
         /// Connection is not available
         isConnected.value = false;
       } else {
@@ -32,12 +32,12 @@ class CheckInternetController extends GetxController {
       }
     });
     connectionStream = Connectivity().onConnectivityChanged.listen((result) {
-      if (result == ConnectivityResult.none) {
+      if (result.contains(ConnectivityResult.none)) {
         /// Connection is not available
         isConnected.value = false;
       } else {
         /// Connection is available
-        if (result != ConnectivityResult.mobile) {
+        if (!result.contains(ConnectivityResult.mobile)) {
           dataConnectionStream =
               DataConnectionChecker().onStatusChange.listen((status) {
             switch (status) {

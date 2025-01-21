@@ -1,15 +1,15 @@
-import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-import 'package:just_movie/core/constants/string_constants.dart';
-import 'package:just_movie/core/constants/theme_constants.dart';
-import 'package:shimmer/shimmer.dart';
-import 'package:sizer/sizer.dart';
+import "package:flutter/material.dart";
+import "package:get/get.dart";
+import "package:just_movie/core/constants/string_constants.dart";
+import "package:just_movie/core/constants/theme_constants.dart";
+import "package:just_movie/features/home/presentation/controller/home_controller.dart";
+import "package:just_movie/routes/app_routes.dart";
+import "package:shimmer/shimmer.dart";
+import "package:sizer/sizer.dart";
 
 class TitleText extends StatelessWidget {
   const TitleText({
-    super.key,
-    required this.title,
-    required this.isLoading,
+    required this.title, required this.isLoading, super.key,
     this.isTvShow = false,
   });
   final String title;
@@ -35,21 +35,36 @@ class TitleText extends StatelessWidget {
             )
           : Row(
               children: [
-                Text(
-                  title,
-                  style: const TextStyle(
-                    fontSize: 20,
-                    color: ThemeConstants.clrWhite,
+                Row(
+                  children: [
+                    Text(
+                      title,
+                      style: const TextStyle(
+                        fontSize: 20,
+                        color: ThemeConstants.clrWhite,
+                      ),
+                    ),
+                    if (isTvShow)
+                      const Text(
+                        StringConstants.strTvShows,
+                        style: TextStyle(
+                          fontSize: 13,
+                          color: ThemeConstants.clrGrey,
+                        ),
+                      ).marginOnly(left: 10),
+                  ],
+                ),
+                IconButton(
+                  onPressed: () {
+                    Get.find<HomeController>()
+                      ..movieCurrentPage = 1
+                      ..getMoreMovie();
+                    Get.toNamed(AppRoutes.moreMovieRoute);
+                  },
+                  icon: const Icon(
+                    Icons.keyboard_arrow_right,
                   ),
                 ),
-                if (isTvShow)
-                  const Text(
-                    StringConstants.strTvShows,
-                    style: TextStyle(
-                      fontSize: 13,
-                      color: ThemeConstants.clrGrey,
-                    ),
-                  ).marginOnly(left: 10),
               ],
             ),
     );

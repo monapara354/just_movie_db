@@ -1,26 +1,24 @@
-import 'package:cached_network_image/cached_network_image.dart';
-import 'package:carousel_slider/carousel_slider.dart';
-import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-import 'package:just_movie/core/constants/image_constants.dart';
-import 'package:just_movie/core/constants/string_constants.dart';
-import 'package:just_movie/core/constants/theme_constants.dart';
-import 'package:just_movie/core/services/api_urls.dart';
-import 'package:just_movie/core/utils/generic_enums.dart';
-import 'package:just_movie/features/home/domain/entities/movie_info.dart';
-import 'package:just_movie/features/movie_details/presentation/controller/movie_detail_controller.dart';
-import 'package:just_movie/routes/app_routes.dart';
-import 'package:shimmer/shimmer.dart';
-import 'package:sizer/sizer.dart';
+import "package:cached_network_image/cached_network_image.dart";
+import "package:carousel_slider/carousel_slider.dart";
+import "package:flutter/material.dart";
+import "package:get/get.dart";
+import "package:just_movie/core/constants/image_constants.dart";
+import "package:just_movie/core/constants/string_constants.dart";
+import "package:just_movie/core/constants/theme_constants.dart";
+import "package:just_movie/core/services/api_urls.dart";
+import "package:just_movie/core/utils/generic_enums.dart";
+import "package:just_movie/features/home/domain/entities/movie_info.dart";
+import "package:just_movie/features/movie_details/presentation/controller/movie_detail_controller.dart";
+import "package:just_movie/routes/app_routes.dart";
+import "package:shimmer/shimmer.dart";
+import "package:sizer/sizer.dart";
 
 class CustomSliderMovie extends StatelessWidget {
   const CustomSliderMovie({
-    super.key,
-    required this.moviesList,
-    required this.isLoading,
+    required this.moviesList, required this.isLoading, super.key,
   });
 
-  final List<MovieInfo> moviesList;
+  final List<MovieResult> moviesList;
   final bool isLoading;
 
   @override
@@ -28,11 +26,9 @@ class CustomSliderMovie extends StatelessWidget {
     return SizedBox(
       child: CarouselSlider(
         options: CarouselOptions(
-          height: 180.sp,
-          aspectRatio: 16 / 9,
-          viewportFraction: 0.9,
+          height: 220.sp,
+          viewportFraction: 0.92,
           autoPlay: true,
-          enableInfiniteScroll: true,
           autoPlayInterval: const Duration(seconds: 6),
         ),
         items: isLoading
@@ -43,13 +39,13 @@ class CustomSliderMovie extends StatelessWidget {
                   child: Container(
                     width: double.maxFinite,
                     height: 180.sp,
-                    margin: const EdgeInsets.symmetric(horizontal: 10),
+                    margin: const EdgeInsets.symmetric(horizontal: 8),
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(16),
                       color: ThemeConstants.clrLightBlueGrey,
                     ),
                   ),
-                )
+                ),
               ]
             : moviesList.isNotEmpty
                 ? moviesList.map(
@@ -67,7 +63,7 @@ class CustomSliderMovie extends StatelessWidget {
                           Get.toNamed(AppRoutes.movieDetailRoute);
                         },
                         child: Container(
-                          margin: const EdgeInsets.symmetric(horizontal: 10),
+                          margin: const EdgeInsets.symmetric(horizontal: 8),
                           clipBehavior: Clip.hardEdge,
                           width: double.maxFinite,
                           decoration: BoxDecoration(
@@ -76,7 +72,7 @@ class CustomSliderMovie extends StatelessWidget {
                           ),
                           child: CachedNetworkImage(
                             imageUrl:
-                                '${EndPoints.imageBaseUrl500}${movie.posterPath}',
+                                "${EndPoints.imageBaseUrl500}${movie.posterPath}",
                             placeholder: (context, url) {
                               return Shimmer.fromColors(
                                 baseColor: ThemeConstants.clrLightBlueGrey,
@@ -118,7 +114,7 @@ class CustomSliderMovie extends StatelessWidget {
                           ),
                         ),
                       ],
-                    )
+                    ),
                   ],
       ),
     );

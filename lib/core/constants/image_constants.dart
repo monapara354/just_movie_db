@@ -7,7 +7,7 @@ class ImageConstants {
 }
 
 class IconsConstants {
-  static const String rootIcon = 'assets/icons';
+  static const String rootIcon = "assets/icons";
 
-  static const String icTMDB = '$rootIcon/ic_tmdb.png';
+  static const String icTMDB = "$rootIcon/ic_tmdb.png";
 }

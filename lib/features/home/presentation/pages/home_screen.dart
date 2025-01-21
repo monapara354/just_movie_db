@@ -1,11 +1,13 @@
-import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-import 'package:just_movie/core/constants/string_constants.dart';
-import 'package:just_movie/features/home/presentation/controller/home_controller.dart';
-import 'package:just_movie/features/home/presentation/widgets/custom_slider_movie.dart';
-import 'package:just_movie/features/home/presentation/widgets/movie_list.dart';
-import 'package:just_movie/features/home/presentation/widgets/title_text.dart';
-import 'package:just_movie/features/home/presentation/widgets/tv_list.dart';
+import "package:flutter/material.dart";
+import "package:get/get.dart";
+import "package:just_movie/core/constants/string_constants.dart";
+import "package:just_movie/core/constants/theme_constants.dart";
+import "package:just_movie/features/home/presentation/controller/home_controller.dart";
+import "package:just_movie/features/home/presentation/widgets/custom_slider_movie.dart";
+import "package:just_movie/features/home/presentation/widgets/movie_list.dart";
+import "package:just_movie/features/home/presentation/widgets/title_text.dart";
+import "package:just_movie/features/home/presentation/widgets/tv_list.dart";
+import "package:just_movie/routes/app_routes.dart";
 
 class HomeScreen extends StatelessWidget {
   HomeScreen({super.key});
@@ -19,6 +21,17 @@ class HomeScreen extends StatelessWidget {
       appBar: AppBar(
         centerTitle: true,
         title: const Text(StringConstants.strAppName),
+        actions: [
+          IconButton(
+            onPressed: () {
+              Get.toNamed(AppRoutes.searchRoute);
+            },
+            icon: const Icon(
+              Icons.search,
+              color: ThemeConstants.clrWhite,
+            ),
+          ),
+        ],
         elevation: 2,
       ),
       body: Padding(
@@ -83,48 +96,48 @@ class HomeScreen extends StatelessWidget {
                     children: [
                       TitleText(
                         title: StringConstants.strTrending,
-                        isLoading: homeController.isLoading.value,
+                        isLoading: homeController.isTvLoading.value,
                         isTvShow: true,
                       ),
                       TvList(
                         tvList: homeController.trendingTvList,
-                        isLoading: homeController.isLoading.value,
+                        isLoading: homeController.isTvLoading.value,
                         onRefresh: () {
                           homeController.getTrendingTvShow();
                         },
                       ),
                       TitleText(
                         title: StringConstants.strNetflix,
-                        isLoading: homeController.isLoading.value,
+                        isLoading: homeController.isTvLoading.value,
                         isTvShow: true,
                       ),
                       TvList(
                         tvList: homeController.netflixTvList,
-                        isLoading: homeController.isLoading.value,
+                        isLoading: homeController.isTvLoading.value,
                         onRefresh: () {
                           homeController.getNetflixTvShow();
                         },
                       ),
                       TitleText(
                         title: StringConstants.strDisney,
-                        isLoading: homeController.isLoading.value,
+                        isLoading: homeController.isTvLoading.value,
                         isTvShow: true,
                       ),
                       TvList(
                         tvList: homeController.disneyTvList,
-                        isLoading: homeController.isLoading.value,
+                        isLoading: homeController.isTvLoading.value,
                         onRefresh: () {
                           homeController.getDisneyTvShow();
                         },
                       ),
                       TitleText(
                         title: StringConstants.strAmazon,
-                        isLoading: homeController.isLoading.value,
+                        isLoading: homeController.isTvLoading.value,
                         isTvShow: true,
                       ),
                       TvList(
                         tvList: homeController.amazonTvList,
-                        isLoading: homeController.isLoading.value,
+                        isLoading: homeController.isTvLoading.value,
                         onRefresh: () {
                           homeController.getAmazonTvShow();
                         },

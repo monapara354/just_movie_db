@@ -1,4 +1,4 @@
-import 'package:just_movie/features/movie_details/data/model/cast_crew_model.dart';
+import "package:just_movie/features/movie_details/data/model/cast_crew_model.dart";
 
 class CastCrew {
   CastCrew({
@@ -13,20 +13,6 @@ class CastCrew {
 }
 
 class Cast {
-  bool? adult;
-  int? gender;
-  int? id;
-  Department? knownForDepartment;
-  String? name;
-  String? originalName;
-  double? popularity;
-  String? profilePath;
-  int? castId;
-  String? character;
-  String? creditId;
-  int? order;
-  Department? department;
-  String? job;
 
   Cast({
     this.adult,
@@ -44,6 +30,20 @@ class Cast {
     this.department,
     this.job,
   });
+  bool? adult;
+  int? gender;
+  int? id;
+  Department? knownForDepartment;
+  String? name;
+  String? originalName;
+  double? popularity;
+  String? profilePath;
+  int? castId;
+  String? character;
+  String? creditId;
+  int? order;
+  Department? department;
+  String? job;
 }
 
 // ignore_for_file: constant_identifier_names

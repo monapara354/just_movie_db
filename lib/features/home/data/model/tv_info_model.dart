@@ -1,10 +1,9 @@
-import 'dart:convert';
+import "dart:convert";
 
-import 'package:just_movie/features/home/domain/entities/tv_info.dart';
+import "package:just_movie/features/home/domain/entities/tv_info.dart";
 
 TvInfo tvInfoFromJson(String str) => TvInfoModel.fromJson(json.decode(str));
 
-// String tvInfoToJson(TvInfo data) => json.encode(data.toJson());
 
 class TvInfoModel extends TvInfo {
   TvInfoModel({
@@ -20,7 +19,7 @@ class TvInfoModel extends TvInfo {
       results: json["results"] == null
           ? []
           : List<TvResult>.from(
-              json["results"]!.map((x) => TvResultModel.fromJson(x))),
+              json["results"]!.map((x) => TvResultModel.fromJson(x)),),
       totalPages: json["total_pages"],
       totalResults: json["total_results"],
     );

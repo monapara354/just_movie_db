@@ -1,7 +1,31 @@
-import 'package:just_movie/features/home/domain/entities/movie_info.dart';
+import "package:just_movie/features/home/domain/entities/movie_info.dart";
 
 class MovieInfoModel extends MovieInfo {
   MovieInfoModel({
+    super.page,
+    super.results,
+    super.totalPages,
+    super.totalResults,
+  });
+
+  factory MovieInfoModel.fromJson(Map<String, dynamic> json) => MovieInfoModel(
+        page: json["page"],
+        results: List<MovieResult>.from(
+            json["results"].map((x) => MovieResultModel.fromJson(x)),),
+        totalPages: json["total_pages"],
+        totalResults: json["total_results"],
+      );
+
+  // Map<String, dynamic> toJson() => {
+  //       "page": page,
+  //       "results": List<MovieResultModel>.from(results.map((x) => x.toJson())),
+  //       "total_pages": totalPages,
+  //       "total_results": totalResults,
+  //     };
+}
+
+class MovieResultModel extends MovieResult {
+  MovieResultModel({
     super.adult,
     super.backdropPath,
     super.genreIds,
@@ -18,7 +42,7 @@ class MovieInfoModel extends MovieInfo {
     super.voteCount,
   });
 
-  MovieInfoModel.fromJson(Map<String, dynamic> json) {
+  MovieResultModel.fromJson(Map<String, dynamic> json) {
     adult = json["adult"];
     backdropPath = json["backdrop_path"];
     genreIds =

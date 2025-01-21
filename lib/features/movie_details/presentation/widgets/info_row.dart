@@ -1,9 +1,9 @@
-import 'package:flutter/material.dart';
-import 'package:just_movie/core/constants/theme_constants.dart';
-import 'package:sizer/sizer.dart';
+import "package:flutter/material.dart";
+import "package:just_movie/core/constants/theme_constants.dart";
+import "package:sizer/sizer.dart";
 
 class InfoRow extends StatelessWidget {
-  const InfoRow({super.key, required this.title, required this.value});
+  const InfoRow({required this.title, required this.value, super.key});
   final String title;
   final String value;
 

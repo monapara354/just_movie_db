@@ -1,22 +1,19 @@
-import 'package:cached_network_image/cached_network_image.dart';
-import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-import 'package:just_movie/core/constants/image_constants.dart';
-import 'package:just_movie/core/constants/string_constants.dart';
-import 'package:just_movie/core/constants/theme_constants.dart';
-import 'package:just_movie/core/services/api_urls.dart';
-import 'package:just_movie/core/shared/domain/methods/methods.dart';
-import 'package:just_movie/features/movie_details/domain/entities/cast_crew.dart';
-import 'package:just_movie/features/movie_details/domain/entities/movie_detail.dart';
-import 'package:just_movie/features/movie_details/presentation/controller/movie_detail_controller.dart';
-import 'package:just_movie/features/movie_details/presentation/widgets/cast_widget.dart';
-import 'package:just_movie/features/movie_details/presentation/widgets/common_container.dart';
-import 'package:just_movie/features/movie_details/presentation/widgets/info_row.dart';
-import 'package:just_movie/routes/app_routes.dart';
-import 'package:sizer/sizer.dart';
+import "package:flutter/material.dart";
+import "package:get/get.dart";
+import "package:just_movie/core/constants/string_constants.dart";
+import "package:just_movie/core/constants/theme_constants.dart";
+import "package:just_movie/core/shared/domain/methods/methods.dart";
+import "package:just_movie/features/movie_details/domain/entities/cast_crew.dart";
+import "package:just_movie/features/movie_details/domain/entities/movie_detail.dart";
+import "package:just_movie/features/movie_details/presentation/controller/movie_detail_controller.dart";
+import "package:just_movie/features/movie_details/presentation/widgets/cast_widget.dart";
+import "package:just_movie/features/movie_details/presentation/widgets/common_container.dart";
+import "package:just_movie/features/movie_details/presentation/widgets/info_row.dart";
+import "package:just_movie/routes/app_routes.dart";
+import "package:sizer/sizer.dart";
 
 class MovieInfoWidget extends StatelessWidget {
-  const MovieInfoWidget({super.key, required this.movieInfo, this.castCrew});
+  const MovieInfoWidget({required this.movieInfo, super.key, this.castCrew});
 
   final MovieDetail movieInfo;
   final CastCrew? castCrew;
@@ -46,7 +43,6 @@ class MovieInfoWidget extends StatelessWidget {
           ),
         ),
         Row(
-          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Container(
               alignment: Alignment.topLeft,
@@ -124,7 +120,6 @@ class MovieInfoWidget extends StatelessWidget {
         if (castCrew != null)
           Visibility(
             visible: castCrew?.cast != null && castCrew!.cast!.isNotEmpty,
-            replacement: const SizedBox.shrink(),
             child: Column(
               children: [
                 Container(
@@ -151,7 +146,6 @@ class MovieInfoWidget extends StatelessWidget {
                       final castList = castCrew?.cast?[index];
                       return CastWidget(
                         onTap: () {
-                          print("person ID----${castList.id}");
                           Get.find<MovieDetailController>()
                             ..getPersonDetail(castList.id ?? 0)
                             ..getPersonMovie(castList.id ?? 0)
@@ -164,7 +158,7 @@ class MovieInfoWidget extends StatelessWidget {
                       );
                     },
                   ),
-                )
+                ),
               ],
             ),
           ),

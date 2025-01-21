@@ -1,4 +1,4 @@
-import 'package:just_movie/features/movie_details/domain/entities/movie_detail.dart';
+import "package:just_movie/features/movie_details/domain/entities/movie_detail.dart";
 
 class MovieDetailModel extends MovieDetail {
   MovieDetailModel(
@@ -27,7 +27,7 @@ class MovieDetailModel extends MovieDetail {
       super.title,
       super.video,
       super.voteAverage,
-      super.voteCount});
+      super.voteCount,});
 
   factory MovieDetailModel.fromJson(Map<String, dynamic> json) =>
       MovieDetailModel(
@@ -39,7 +39,7 @@ class MovieDetailModel extends MovieDetail {
         budget: json["budget"],
         genres: json["genres"] != null
             ? List<GenreModel>.from(
-                json["genres"].map((x) => GenreModel.fromJson(x)))
+                json["genres"].map((x) => GenreModel.fromJson(x)),)
             : null,
         homepage: json["homepage"],
         id: json["id"],
@@ -54,18 +54,18 @@ class MovieDetailModel extends MovieDetail {
         posterPath: json["poster_path"],
         productionCompanies: json["production_companies"] != null
             ? List<ProductionCompanyModel>.from(json["production_companies"]
-                .map((x) => ProductionCompanyModel.fromJson(x)))
+                .map((x) => ProductionCompanyModel.fromJson(x)),)
             : null,
         productionCountries: json["production_countries"] != null
             ? List<ProductionCountryModel>.from(json["production_countries"]
-                .map((x) => ProductionCountryModel.fromJson(x)))
+                .map((x) => ProductionCountryModel.fromJson(x)),)
             : null,
         releaseDate: DateTime.parse(json["release_date"]),
         revenue: json["revenue"],
         runtime: json["runtime"],
         spokenLanguages: json["spoken_languages"] != null
             ? List<SpokenLanguageModel>.from(json["spoken_languages"]
-                .map((x) => SpokenLanguageModel.fromJson(x)))
+                .map((x) => SpokenLanguageModel.fromJson(x)),)
             : null,
         status: json["status"],
         tagline: json["tagline"],
@@ -111,7 +111,7 @@ class MovieDetailModel extends MovieDetail {
 
 class BelongsToCollectionModel extends BelongsToCollection {
   BelongsToCollectionModel(
-      {super.id, super.name, super.posterPath, super.backdropPath});
+      {super.id, super.name, super.posterPath, super.backdropPath,});
 
   factory BelongsToCollectionModel.fromJson(Map<String, dynamic> json) =>
       BelongsToCollectionModel(
@@ -145,7 +145,7 @@ class GenreModel extends Genre {
 
 class ProductionCompanyModel extends ProductionCompany {
   ProductionCompanyModel(
-      {super.id, super.logoPath, super.name, super.originCountry});
+      {super.id, super.logoPath, super.name, super.originCountry,});
 
   factory ProductionCompanyModel.fromJson(Map<String, dynamic> json) =>
       ProductionCompanyModel(

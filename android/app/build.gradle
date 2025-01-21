@@ -25,7 +25,6 @@ if (flutterVersionName == null) {
 android {
     namespace "com.app.just_movie"
     compileSdkVersion 35
-//    ndkVersion flutter.ndkVersion
 
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_11

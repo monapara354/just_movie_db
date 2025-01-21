@@ -1,32 +1,6 @@
-import 'package:just_movie/features/movie_details/data/model/movie_detail_model.dart';
+import "package:just_movie/features/movie_details/data/model/movie_detail_model.dart";
 
 class MovieDetail {
-  bool? adult;
-  String? backdropPath;
-  BelongsToCollectionModel? belongsToCollection;
-  int? budget;
-  List<GenreModel>? genres;
-  String? homepage;
-  int? id;
-  String? imdbId;
-  List<String>? originCountry;
-  String? originalLanguage;
-  String? originalTitle;
-  String? overview;
-  double? popularity;
-  String? posterPath;
-  List<ProductionCompanyModel>? productionCompanies;
-  List<ProductionCountryModel>? productionCountries;
-  DateTime? releaseDate;
-  int? revenue;
-  int? runtime;
-  List<SpokenLanguageModel>? spokenLanguages;
-  String? status;
-  String? tagline;
-  String? title;
-  bool? video;
-  double? voteAverage;
-  int? voteCount;
 
   MovieDetail({
      this.adult,
@@ -56,13 +30,35 @@ class MovieDetail {
      this.voteAverage,
      this.voteCount,
   });
+  bool? adult;
+  String? backdropPath;
+  BelongsToCollectionModel? belongsToCollection;
+  int? budget;
+  List<GenreModel>? genres;
+  String? homepage;
+  int? id;
+  String? imdbId;
+  List<String>? originCountry;
+  String? originalLanguage;
+  String? originalTitle;
+  String? overview;
+  double? popularity;
+  String? posterPath;
+  List<ProductionCompanyModel>? productionCompanies;
+  List<ProductionCountryModel>? productionCountries;
+  DateTime? releaseDate;
+  int? revenue;
+  int? runtime;
+  List<SpokenLanguageModel>? spokenLanguages;
+  String? status;
+  String? tagline;
+  String? title;
+  bool? video;
+  double? voteAverage;
+  int? voteCount;
 }
 
 class BelongsToCollection {
-  int? id;
-  String? name;
-  String? posterPath;
-  String? backdropPath;
 
   BelongsToCollection({
      this.id,
@@ -70,23 +66,23 @@ class BelongsToCollection {
      this.posterPath,
      this.backdropPath,
   });
+  int? id;
+  String? name;
+  String? posterPath;
+  String? backdropPath;
 }
 
 class Genre {
-  int id;
-  String name;
 
   Genre({
     required this.id,
     required this.name,
   });
+  int id;
+  String name;
 }
 
 class ProductionCompany {
-  int? id;
-  String? logoPath;
-  String? name;
-  String? originCountry;
 
   ProductionCompany({
      this.id,
@@ -94,26 +90,30 @@ class ProductionCompany {
      this.name,
      this.originCountry,
   });
+  int? id;
+  String? logoPath;
+  String? name;
+  String? originCountry;
 }
 
 class ProductionCountry {
-  String? iso31661;
-  String? name;
 
   ProductionCountry({
      this.iso31661,
      this.name,
   });
+  String? iso31661;
+  String? name;
 }
 
 class SpokenLanguage {
-  String? englishName;
-  String? iso6391;
-  String? name;
 
   SpokenLanguage({
      this.englishName,
      this.iso6391,
      this.name,
   });
+  String? englishName;
+  String? iso6391;
+  String? name;
 }

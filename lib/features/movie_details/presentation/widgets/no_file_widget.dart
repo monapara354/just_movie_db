@@ -1,7 +1,7 @@
-import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-import 'package:just_movie/core/constants/image_constants.dart';
-import 'package:just_movie/core/constants/theme_constants.dart';
+import "package:flutter/material.dart";
+import "package:get/get.dart";
+import "package:just_movie/core/constants/image_constants.dart";
+import "package:just_movie/core/constants/theme_constants.dart";
 
 class NoFileWidget extends StatelessWidget {
   const NoFileWidget({super.key, this.isBack = true});

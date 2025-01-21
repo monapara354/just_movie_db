@@ -1,29 +1,29 @@
-import 'package:dartz/dartz.dart';
-import 'package:get/get.dart';
-import 'package:just_movie/core/constants/string_constants.dart';
-import 'package:just_movie/core/shared/domain/error/exception.dart';
+import "package:dartz/dartz.dart";
+import "package:get/get.dart";
+import "package:just_movie/core/constants/string_constants.dart";
+import "package:just_movie/core/shared/domain/error/exception.dart";
 
-import 'package:just_movie/core/shared/domain/error/failure.dart';
-import 'package:just_movie/core/shared/presentaion/controller/check_internet_controller.dart';
-import 'package:just_movie/core/utils/generic_typedefs.dart';
+import "package:just_movie/core/shared/domain/error/failure.dart";
+import "package:just_movie/core/shared/presentaion/controller/check_internet_controller.dart";
+import "package:just_movie/core/utils/generic_typedefs.dart";
 
-import 'package:just_movie/features/home/data/datasource/home_datasource.dart';
-import 'package:just_movie/features/home/data/model/tv_info_model.dart';
-import 'package:just_movie/features/home/domain/entities/movie_info.dart';
-import 'package:just_movie/features/home/domain/repositories/home_repository.dart';
-import 'package:just_movie/features/home/domain/usecases/get_all_movie.dart';
-import 'package:just_movie/features/home/domain/usecases/get_all_tv.dart';
-import 'package:just_movie/features/home/domain/usecases/get_tranding.dart';
+import "package:just_movie/features/home/data/datasource/home_datasource.dart";
+import "package:just_movie/features/home/data/model/movie_info_model.dart";
+import "package:just_movie/features/home/data/model/tv_info_model.dart";
+import "package:just_movie/features/home/domain/repositories/home_repository.dart";
+import "package:just_movie/features/home/domain/usecases/get_all_movie.dart";
+import "package:just_movie/features/home/domain/usecases/get_all_tv.dart";
+import "package:just_movie/features/home/domain/usecases/get_tranding.dart";
 
 class HomeRepositoryImpl implements HomeRepository {
-  final HomeDataSource homeDataSource;
 
   HomeRepositoryImpl({required this.homeDataSource});
+  final HomeDataSource homeDataSource;
 
   final checkInternetController = Get.find<CheckInternetController>();
 
   @override
-  EitherDynamic<List<MovieInfo>> getMovieList(
+  EitherDynamic<MovieInfoModel> getMovieList(
     GetMovieListParams getMovieListParams,
   ) async {
     if (checkInternetController.isConnected.value) {
@@ -43,7 +43,7 @@ class HomeRepositoryImpl implements HomeRepository {
   }
 
   @override
-  EitherDynamic<List<MovieInfo>> getTrendingList(
+  EitherDynamic<MovieInfoModel> getTrendingList(
     GetTrendingListParams getTrendingListParams,
   ) async {
     if (checkInternetController.isConnected.value) {

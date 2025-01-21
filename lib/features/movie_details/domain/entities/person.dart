@@ -1,18 +1,4 @@
 class Person {
-  bool? adult;
-  List<String>? alsoKnownAs;
-  String? biography;
-  String? birthday;
-  String? deathday;
-  int? gender;
-  String? homepage;
-  int? id;
-  String? imdbId;
-  String? knownForDepartment;
-  String? name;
-  String? placeOfBirth;
-  double? popularity;
-  String? profilePath;
 
   Person({
     this.adult,
@@ -30,4 +16,18 @@ class Person {
     this.popularity,
     this.profilePath,
   });
+  bool? adult;
+  List<String>? alsoKnownAs;
+  String? biography;
+  String? birthday;
+  String? deathday;
+  int? gender;
+  String? homepage;
+  int? id;
+  String? imdbId;
+  String? knownForDepartment;
+  String? name;
+  String? placeOfBirth;
+  double? popularity;
+  String? profilePath;
 }

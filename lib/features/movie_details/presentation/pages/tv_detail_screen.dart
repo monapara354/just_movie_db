@@ -1,14 +1,14 @@
-import 'package:cached_network_image/cached_network_image.dart';
-import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-import 'package:just_movie/core/constants/image_constants.dart';
-import 'package:just_movie/core/constants/theme_constants.dart';
-import 'package:just_movie/core/services/api_urls.dart';
-import 'package:just_movie/features/movie_details/presentation/controller/movie_detail_controller.dart';
-import 'package:just_movie/features/movie_details/presentation/widgets/no_file_widget.dart';
-import 'package:just_movie/features/movie_details/presentation/widgets/tv_info_widget.dart';
-import 'package:shimmer/shimmer.dart';
-import 'package:sizer/sizer.dart';
+import "package:cached_network_image/cached_network_image.dart";
+import "package:flutter/material.dart";
+import "package:get/get.dart";
+import "package:just_movie/core/constants/image_constants.dart";
+import "package:just_movie/core/constants/theme_constants.dart";
+import "package:just_movie/core/services/api_urls.dart";
+import "package:just_movie/features/movie_details/presentation/controller/movie_detail_controller.dart";
+import "package:just_movie/features/movie_details/presentation/widgets/no_file_widget.dart";
+import "package:just_movie/features/movie_details/presentation/widgets/tv_info_widget.dart";
+import "package:shimmer/shimmer.dart";
+import "package:sizer/sizer.dart";
 
 class TvDetailScreen extends StatelessWidget {
   TvDetailScreen({super.key});
@@ -33,7 +33,7 @@ class TvDetailScreen extends StatelessWidget {
               children: [
                 CachedNetworkImage(
                   imageUrl:
-                      '${EndPoints.imageBaseUrl500}${tvInfo?.backdropPath}',
+                      "${EndPoints.imageBaseUrl500}${tvInfo?.backdropPath}",
                   placeholder: (context, url) {
                     return Center(
                       child: Container(color: ThemeConstants.clrBlack100),
@@ -43,7 +43,7 @@ class TvDetailScreen extends StatelessWidget {
                     return Container(
                       width: double.maxFinite,
                       height: 120,
-                      color: ThemeConstants.clrLightBlueGrey.withOpacity(0.5),
+                      color: ThemeConstants.clrLightBlueGrey.withValues(alpha: 0.5),
                       child: const Icon(
                         Icons.local_movies_outlined,
                         size: 60,
@@ -78,15 +78,13 @@ class TvDetailScreen extends StatelessWidget {
                                         blurRadius: 5,
                                         spreadRadius: 0.8,
                                         color: ThemeConstants.clrBlueGrey,
-                                      )
+                                      ),
                                     ],
                                   ),
                                   clipBehavior: Clip.hardEdge,
                                   child: CachedNetworkImage(
                                     imageUrl:
-                                        '${EndPoints.imageBaseUrl300}${tvInfo?.posterPath}',
-                                    // width: 35.w,
-                                    // height: 25.h,
+                                        "${EndPoints.imageBaseUrl300}${tvInfo?.posterPath}",
                                     width: 95.sp,
                                     height: 130.sp,
                                     fit: BoxFit.fill,
@@ -102,8 +100,8 @@ class TvDetailScreen extends StatelessWidget {
                                           decoration: BoxDecoration(
                                             borderRadius:
                                                 BorderRadius.circular(15),
-                                            color: ThemeConstants
-                                                .clrLightBlueGrey, //ThemeConstants.clrBlack
+                                            color:
+                                                ThemeConstants.clrLightBlueGrey,
                                           ),
                                         ),
                                       );
@@ -137,7 +135,7 @@ class TvDetailScreen extends StatelessWidget {
                                         ),
                                       ),
                                       Container(
-                                        margin: const EdgeInsets.only(top: 0),
+                                        margin: const EdgeInsets.only(),
                                         child: Row(
                                           children: [
                                             Image.asset(
@@ -161,10 +159,10 @@ class TvDetailScreen extends StatelessWidget {
                                                       .clrAmberYellow,
                                                 ),
                                               ),
-                                            )
+                                            ),
                                           ],
                                         ),
-                                      )
+                                      ),
                                     ],
                                   ),
                                 ),
@@ -200,7 +198,7 @@ class TvDetailScreen extends StatelessWidget {
                   ],
                 ),
               ],
-            ));
+            ),);
       }),
     );
   }

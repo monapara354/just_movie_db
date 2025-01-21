@@ -1,8 +1,8 @@
-import 'package:flutter/material.dart';
-import 'package:just_movie/core/constants/theme_constants.dart';
+import "package:flutter/material.dart";
+import "package:just_movie/core/constants/theme_constants.dart";
 
 class CommonContainer extends StatelessWidget {
-  const CommonContainer({super.key, required this.name});
+  const CommonContainer({required this.name, super.key});
 
   final String name;
   @override

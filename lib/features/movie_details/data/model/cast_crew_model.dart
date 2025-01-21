@@ -1,4 +1,4 @@
-import 'package:just_movie/features/movie_details/domain/entities/cast_crew.dart';
+import "package:just_movie/features/movie_details/domain/entities/cast_crew.dart";
 
 class CastCrewModel extends CastCrew {
   CastCrewModel({
@@ -8,16 +8,16 @@ class CastCrewModel extends CastCrew {
   });
 
   CastCrewModel.fromJson(Map<String, dynamic> json) {
-    id = json['id'];
-    if (json['cast'] != null) {
+    id = json["id"];
+    if (json["cast"] != null) {
       cast = <CastModel>[];
-      json['cast'].forEach((v) {
+      json["cast"].forEach((v) {
         cast!.add(CastModel.fromJson(v));
       });
     }
-    if (json['crew'] != null) {
+    if (json["crew"] != null) {
       crew = <CastModel>[];
-      json['crew'].forEach((v) {
+      json["crew"].forEach((v) {
         crew!.add(CastModel.fromJson(v));
       });
     }
@@ -56,7 +56,7 @@ class CastModel extends Cast {
         adult: json["adult"],
         gender: json["gender"],
         id: json["id"],
-        knownForDepartment: departmentValues.map[json["known_for_department"]],
+        // knownForDepartment: departmentValues.map[json["known_for_department"]],
         name: json["name"],
         originalName: json["original_name"],
         popularity: json["popularity"]?.toDouble(),
@@ -99,17 +99,16 @@ final departmentValues = EnumValues({
   "Production": Department.PRODUCTION,
   "Sound": Department.SOUND,
   "Visual Effects": Department.VISUAL_EFFECTS,
-  "Writing": Department.WRITING
+  "Writing": Department.WRITING,
 });
 
 class EnumValues<T> {
+
+  EnumValues(this.map);
   Map<String, T> map;
   late Map<T, String> reverseMap;
 
-  EnumValues(this.map);
-
   Map<T, String> get reverse {
-    reverseMap = map.map((k, v) => MapEntry(v, k));
-    return reverseMap;
+    return reverseMap = map.map((k, v) => MapEntry(v, k));
   }
 }

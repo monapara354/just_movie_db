@@ -1,26 +1,20 @@
-import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-import 'package:just_movie/core/shared/domain/error/failure.dart';
-import 'package:just_movie/core/utils/generic_enums.dart';
-import 'package:just_movie/core/utils/utils.dart';
-import 'package:just_movie/features/home/domain/entities/movie_info.dart';
-import 'package:just_movie/features/home/domain/entities/tv_info.dart';
-import 'package:just_movie/features/movie_details/domain/entities/cast_crew.dart';
-import 'package:just_movie/features/movie_details/domain/entities/movie_detail.dart';
-import 'package:just_movie/features/movie_details/domain/entities/person.dart';
-import 'package:just_movie/features/movie_details/domain/entities/tv_detail.dart';
-import 'package:just_movie/features/movie_details/domain/usecases/get_cast_detail.dart';
-import 'package:just_movie/features/movie_details/domain/usecases/get_movie_detail.dart';
-import 'package:just_movie/features/movie_details/domain/usecases/get_person_detail.dart';
-import 'package:just_movie/features/movie_details/domain/usecases/get_tv_detail.dart';
+import "package:flutter/material.dart";
+import "package:get/get.dart";
+import "package:just_movie/core/shared/domain/error/failure.dart";
+import "package:just_movie/core/utils/generic_enums.dart";
+import "package:just_movie/core/utils/utils.dart";
+import "package:just_movie/features/home/domain/entities/movie_info.dart";
+import "package:just_movie/features/home/domain/entities/tv_info.dart";
+import "package:just_movie/features/movie_details/domain/entities/cast_crew.dart";
+import "package:just_movie/features/movie_details/domain/entities/movie_detail.dart";
+import "package:just_movie/features/movie_details/domain/entities/person.dart";
+import "package:just_movie/features/movie_details/domain/entities/tv_detail.dart";
+import "package:just_movie/features/movie_details/domain/usecases/get_cast_detail.dart";
+import "package:just_movie/features/movie_details/domain/usecases/get_movie_detail.dart";
+import "package:just_movie/features/movie_details/domain/usecases/get_person_detail.dart";
+import "package:just_movie/features/movie_details/domain/usecases/get_tv_detail.dart";
 
 class MovieDetailController extends GetxController {
-  final GetMovieDetailUC getMovieDetailUC;
-  final GetCastDetailUC getCastDetailUC;
-  final GetPersonDetailUC getPersonDetailUC;
-  final GetPersonMoviesUC getPersonMoviesUC;
-  final GetTVDetailUC getTVDetailUC;
-  final GetPersonTvShowUC getPersonTvShowUC;
 
   MovieDetailController({
     required this.getMovieDetailUC,
@@ -30,11 +24,17 @@ class MovieDetailController extends GetxController {
     required this.getTVDetailUC,
     required this.getPersonTvShowUC,
   });
+  final GetMovieDetailUC getMovieDetailUC;
+  final GetCastDetailUC getCastDetailUC;
+  final GetPersonDetailUC getPersonDetailUC;
+  final GetPersonMoviesUC getPersonMoviesUC;
+  final GetTVDetailUC getTVDetailUC;
+  final GetPersonTvShowUC getPersonTvShowUC;
 
   Rxn<MovieDetail> movieInfo = Rxn<MovieDetail>();
   Rxn<CastCrew> castCrew = Rxn<CastCrew>();
   Rxn<Person> personData = Rxn<Person>();
-  RxList<MovieInfo> movieList = <MovieInfo>[].obs;
+  RxList<MovieResult> movieList = <MovieResult>[].obs;
   RxBool isInfoLoading = false.obs;
   RxBool isPersonLoading = false.obs;
   RxBool isMovieLoading = false.obs;
@@ -135,8 +135,8 @@ class MovieDetailController extends GetxController {
 
       debugPrint(error);
     }, (right) {
-      movieList.clear();
-      movieList.value = right.reversed.toList();
+      movieList..clear()
+      ..value = right.reversed.toList();
       isMovieLoading.value = false;
     });
   }
@@ -185,8 +185,8 @@ class MovieDetailController extends GetxController {
 
       debugPrint(error);
     }, (right) {
-      tvList.clear();
-      tvList.value = right.reversed.toList();
+      tvList..clear()
+      ..value = right.reversed.toList();
       isTvLoading.value = false;
     });
   }
