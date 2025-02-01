@@ -19,6 +19,8 @@ class ThemeConstants {
 }
 
 ThemeData lightTheme = ThemeData(
+   canvasColor: ThemeConstants.clrBlue,
+  shadowColor: ThemeConstants.clrBlue,
   appBarTheme: const AppBarTheme(
     backgroundColor: ThemeConstants.clrDarkBlueGrey,
     titleTextStyle: TextStyle(color: ThemeConstants.clrWhite, fontSize: 20),

@@ -34,8 +34,16 @@ class HomeController extends GetxController {
   RxList<TvResult> amazonTvList = <TvResult>[].obs;
   RxList<TvResult> disneyTvList = <TvResult>[].obs;
 
-  RxBool isLoading = true.obs;
-  RxBool isTvLoading = true.obs;
+
+  RxBool isNowMovieLoading = true.obs;
+  RxBool isUpcomingLoading = true.obs;
+  RxBool isPopularLoading = true.obs;
+  RxBool isTopRatedLoading = true.obs;
+  RxBool isTrendingMovieLoading = true.obs;
+  RxBool isTrendingTvLoading = true.obs;
+  RxBool isNetflixTvLoading = true.obs;
+  RxBool isAmazonTvLoading = true.obs;
+  RxBool isDisneyTvLoading = true.obs;
 
   RxList<MovieResult> moreMovieList = <MovieResult>[].obs;
   int movieCurrentPage = 1;
@@ -77,16 +85,10 @@ class HomeController extends GetxController {
         await getUpcomingMovie();
         await getPopularMovie();
         await getTopRatedMovie();
-        await getTrendingTvShow();
-        await getNetflixTvShow();
-        await getAmazonTvShow();
-        await getDisneyTvShow();
-        await Future.delayed(
-          const Duration(milliseconds: 800),
-          () {
-            isLoading.value = false;
-          },
-        );
+         getTrendingTvShow();
+         getNetflixTvShow();
+         getAmazonTvShow();
+         getDisneyTvShow();
       },
     );
   }
@@ -128,6 +130,7 @@ class HomeController extends GetxController {
   }
 
   Future<void> getNowPlayingMovie() async {
+    isNowMovieLoading.value = true;
     final getNowPlayingFailedOrSuccess = await getMovieListUC(
       GetMovieListParams(type: EndPoints.urlNowPlaying),
     );
@@ -140,15 +143,18 @@ class HomeController extends GetxController {
       if (left is ServerFailure) {
         error = left.errorMessage;
       }
+      isNowMovieLoading.value = false;
       showToast(title: error);
       debugPrint(error);
     }, (right) {
+      isNowMovieLoading.value = false;
       nowPlayingMovieList..clear()
       ..value = right.results ?? [];
     });
   }
 
   Future<void> getUpcomingMovie() async {
+    isUpcomingLoading.value = true;
     final getUpcomingFailedOrSuccess =
         await getMovieListUC(GetMovieListParams(type: EndPoints.urlUpcoming));
     getUpcomingFailedOrSuccess.fold((left) {
@@ -159,15 +165,18 @@ class HomeController extends GetxController {
       if (left is ServerFailure) {
         error = left.errorMessage;
       }
+      isUpcomingLoading.value = false;
       // showToast(title: error);
       debugPrint(error);
     }, (right) {
+      isUpcomingLoading.value = false;
       upcomingMovieList..clear()
       ..value = right.results ?? [];
     });
   }
 
   Future<void> getPopularMovie() async {
+    isPopularLoading.value = true;
     final getPopularFailedOrSuccess =
         await getMovieListUC(GetMovieListParams(type: EndPoints.urlPopular));
     getPopularFailedOrSuccess.fold((left) {
@@ -178,15 +187,18 @@ class HomeController extends GetxController {
       if (left is ServerFailure) {
         error = left.errorMessage;
       }
+      isPopularLoading.value = false;
       // showToast(title: error);
       debugPrint(error);
     }, (right) {
+      isPopularLoading.value = false;
       popularMovieList..clear()
       ..value = right.results ?? [];
     });
   }
 
   Future<void> getTopRatedMovie() async {
+    isTopRatedLoading.value = true;
     final getTopRatedFailedOrSuccess =
         await getMovieListUC(GetMovieListParams(type: EndPoints.urlTopRated));
     getTopRatedFailedOrSuccess.fold((left) {
@@ -197,15 +209,18 @@ class HomeController extends GetxController {
       if (left is ServerFailure) {
         error = left.errorMessage;
       }
+      isTopRatedLoading.value = false;
       // showToast(title: error);
       debugPrint(error);
     }, (right) {
+      isTopRatedLoading.value = false;
       topRatedMovieList..clear()
       ..value = right.results ?? [];
     });
   }
 
   Future<void> getTrendingMovie() async {
+    isTrendingMovieLoading.value = true;
     final getTrendingFailedOrSuccess = await getTrendingListUC(
         GetTrendingListParams(type: EndPoints.urlMovie),);
     getTrendingFailedOrSuccess.fold((left) {
@@ -216,19 +231,21 @@ class HomeController extends GetxController {
       if (left is ServerFailure) {
         error = left.errorMessage;
       }
+      isTrendingMovieLoading.value = false;
       // showToast(title: error);
       debugPrint(error);
     }, (right) {
+      isTrendingMovieLoading.value = false;
       trendingMovieList..clear()
       ..value = right.results ?? [];
     });
   }
 
   Future<void> getTrendingTvShow() async {
-    isTvLoading.value = true;
+    isTrendingTvLoading.value = true;
     final getTrendingTvFailedOrSuccess = await getTrendingTVListUC(NoParams());
     getTrendingTvFailedOrSuccess.fold((left) {
-      isTvLoading.value = false;
+      isTrendingTvLoading.value = false;
       var error = "";
       if (left is GeneralFailure) {
         error = left.errorMessage;
@@ -239,19 +256,19 @@ class HomeController extends GetxController {
 
       debugPrint(error);
     }, (right) {
-      isTvLoading.value = false;
+      isTrendingTvLoading.value = false;
       trendingTvList..clear()
       ..value = right.results ?? [];
     });
   }
 
   Future<void> getNetflixTvShow() async {
-    isTvLoading.value = true;
+    isNetflixTvLoading.value = true;
     final getTvFailedOrSuccess = await getTvListUC(
       GetTvListParams(type: NetworkProvider.netflix),
     );
     getTvFailedOrSuccess.fold((left) {
-      isTvLoading.value = false;
+      isNetflixTvLoading.value = false;
       var error = "";
       if (left is GeneralFailure) {
         error = left.errorMessage;
@@ -262,19 +279,19 @@ class HomeController extends GetxController {
 
       debugPrint(error);
     }, (right) {
-      isTvLoading.value = false;
+      isNetflixTvLoading.value = false;
       netflixTvList..clear()
       ..value = right.results ?? [];
     });
   }
 
   Future<void> getAmazonTvShow() async {
-    isTvLoading.value = true;
+    isAmazonTvLoading.value = true;
     final getTvFailedOrSuccess = await getTvListUC(
       GetTvListParams(type: NetworkProvider.amazon),
     );
     getTvFailedOrSuccess.fold((left) {
-      isTvLoading.value = false;
+      isAmazonTvLoading.value = false;
       var error = "";
       if (left is GeneralFailure) {
         error = left.errorMessage;
@@ -285,19 +302,19 @@ class HomeController extends GetxController {
 
       debugPrint(error);
     }, (right) {
-      isTvLoading.value = false;
+      isAmazonTvLoading.value = false;
       amazonTvList..clear()
       ..value = right.results ?? [];
     });
   }
 
   Future<void> getDisneyTvShow() async {
-    isTvLoading.value = true;
+    isDisneyTvLoading.value = true;
     final getTvFailedOrSuccess = await getTvListUC(
       GetTvListParams(type: NetworkProvider.disney),
     );
     getTvFailedOrSuccess.fold((left) {
-      isTvLoading.value = false;
+      isDisneyTvLoading.value = false;
       var error = "";
       if (left is GeneralFailure) {
         error = left.errorMessage;
@@ -308,7 +325,7 @@ class HomeController extends GetxController {
 
       debugPrint(error);
     }, (right) {
-      isTvLoading.value = false;
+      isDisneyTvLoading.value = false;
       disneyTvList..clear()
       ..value = right.results ?? [];
     });
@@ -320,7 +337,6 @@ class HomeController extends GetxController {
   @override
   Future<void> onInit() async {
     super.onInit();
-    isLoading.value = true;
     await getAllMovie();
     allMovieScroll.addListener(() {
       if (allMovieScroll.position.pixels ==

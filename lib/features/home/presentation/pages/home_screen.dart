@@ -44,15 +44,15 @@ class HomeScreen extends StatelessWidget {
                 const SizedBox(height: 10),
                 CustomSliderMovie(
                   moviesList: homeController.upcomingMovieList,
-                  isLoading: homeController.isLoading.value,
+                  isLoading: homeController.isUpcomingLoading.value,
                 ),
                 TitleText(
                   title: StringConstants.strNowPlaying,
-                  isLoading: homeController.isLoading.value,
+                  isLoading: homeController.isNowMovieLoading.value,
                 ),
                 MovieList(
                   moviesList: homeController.nowPlayingMovieList,
-                  isLoading: homeController.isLoading.value,
+                  isLoading: homeController.isNowMovieLoading.value,
                   onRefresh: () {
                     homeController.getNowPlayingMovie();
                   },
@@ -70,22 +70,22 @@ class HomeScreen extends StatelessWidget {
                 ),  */
                 TitleText(
                   title: StringConstants.strPopular,
-                  isLoading: homeController.isLoading.value,
+                  isLoading: homeController.isPopularLoading.value,
                 ),
                 MovieList(
                   moviesList: homeController.popularMovieList,
-                  isLoading: homeController.isLoading.value,
+                  isLoading: homeController.isPopularLoading.value,
                   onRefresh: () {
                     homeController.getPopularMovie();
                   },
                 ),
                 TitleText(
                   title: StringConstants.strTopRated,
-                  isLoading: homeController.isLoading.value,
+                  isLoading: homeController.isTopRatedLoading.value,
                 ),
                 MovieList(
                   moviesList: homeController.topRatedMovieList,
-                  isLoading: homeController.isLoading.value,
+                  isLoading: homeController.isTopRatedLoading.value,
                   onRefresh: () {
                     homeController.getTopRatedMovie();
                   },
@@ -96,48 +96,48 @@ class HomeScreen extends StatelessWidget {
                     children: [
                       TitleText(
                         title: StringConstants.strTrending,
-                        isLoading: homeController.isTvLoading.value,
+                        isLoading: homeController.isTrendingTvLoading.value,
                         isTvShow: true,
                       ),
                       TvList(
                         tvList: homeController.trendingTvList,
-                        isLoading: homeController.isTvLoading.value,
+                        isLoading: homeController.isTrendingTvLoading.value,
                         onRefresh: () {
                           homeController.getTrendingTvShow();
                         },
                       ),
                       TitleText(
                         title: StringConstants.strNetflix,
-                        isLoading: homeController.isTvLoading.value,
+                        isLoading: homeController.isNetflixTvLoading.value,
                         isTvShow: true,
                       ),
                       TvList(
                         tvList: homeController.netflixTvList,
-                        isLoading: homeController.isTvLoading.value,
+                        isLoading: homeController.isNetflixTvLoading.value,
                         onRefresh: () {
                           homeController.getNetflixTvShow();
                         },
                       ),
                       TitleText(
                         title: StringConstants.strDisney,
-                        isLoading: homeController.isTvLoading.value,
+                        isLoading: homeController.isDisneyTvLoading.value,
                         isTvShow: true,
                       ),
                       TvList(
                         tvList: homeController.disneyTvList,
-                        isLoading: homeController.isTvLoading.value,
+                        isLoading: homeController.isDisneyTvLoading.value,
                         onRefresh: () {
                           homeController.getDisneyTvShow();
                         },
                       ),
                       TitleText(
                         title: StringConstants.strAmazon,
-                        isLoading: homeController.isTvLoading.value,
+                        isLoading: homeController.isAmazonTvLoading.value,
                         isTvShow: true,
                       ),
                       TvList(
                         tvList: homeController.amazonTvList,
-                        isLoading: homeController.isTvLoading.value,
+                        isLoading: homeController.isAmazonTvLoading.value,
                         onRefresh: () {
                           homeController.getAmazonTvShow();
                         },

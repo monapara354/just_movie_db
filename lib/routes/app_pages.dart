@@ -8,10 +8,30 @@ import "package:just_movie/routes/app_routes.dart";
 
 class AppPages {
   static List<GetPage> pageList = [
-    GetPage(name: AppRoutes.initialRoute, page: HomeScreen.new),
-    GetPage(name: AppRoutes.movieDetailRoute, page: MovieDetailScreen.new),
-    GetPage(name: AppRoutes.personDetailRoute, page: PersonDetailScreen.new),
-    GetPage(name: AppRoutes.tvDetailRoute, page: TvDetailScreen.new),
-    GetPage(name: AppRoutes.searchRoute, page: SearchScreen.new),
+    GetPage(
+      name: AppRoutes.initialRoute,
+      page: HomeScreen.new,
+      transition: Transition.fadeIn,
+    ),
+    GetPage(
+      name: AppRoutes.movieDetailRoute,
+      page: MovieDetailScreen.new,
+      transition: Transition.fadeIn,
+    ),
+    GetPage(
+      name: AppRoutes.personDetailRoute,
+      page: PersonDetailScreen.new,
+      transition: Transition.fadeIn,
+    ),
+    GetPage(
+      name: AppRoutes.tvDetailRoute,
+      page: TvDetailScreen.new,
+      transition: Transition.fadeIn,
+    ),
+    GetPage(
+      name: AppRoutes.searchRoute,
+      page: SearchScreen.new,
+      transition: Transition.fadeIn,
+    ),
   ];
 }

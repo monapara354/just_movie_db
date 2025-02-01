@@ -2,8 +2,6 @@ import "package:flutter/material.dart";
 import "package:get/get.dart";
 import "package:just_movie/core/constants/string_constants.dart";
 import "package:just_movie/core/constants/theme_constants.dart";
-import "package:just_movie/features/home/presentation/controller/home_controller.dart";
-import "package:just_movie/routes/app_routes.dart";
 import "package:shimmer/shimmer.dart";
 import "package:sizer/sizer.dart";
 
@@ -54,17 +52,17 @@ class TitleText extends StatelessWidget {
                       ).marginOnly(left: 10),
                   ],
                 ),
-                IconButton(
-                  onPressed: () {
-                    Get.find<HomeController>()
-                      ..movieCurrentPage = 1
-                      ..getMoreMovie();
-                    Get.toNamed(AppRoutes.moreMovieRoute);
-                  },
-                  icon: const Icon(
-                    Icons.keyboard_arrow_right,
-                  ),
-                ),
+                // IconButton(
+                //   onPressed: () {
+                //     Get.find<HomeController>()
+                //       ..movieCurrentPage = 1
+                //       ..getMoreMovie();
+                //     Get.toNamed(AppRoutes.moreMovieRoute);
+                //   },
+                //   icon: const Icon(
+                //     Icons.keyboard_arrow_right,
+                //   ),
+                // ),
               ],
             ),
     );

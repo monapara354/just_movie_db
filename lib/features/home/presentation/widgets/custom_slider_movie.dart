@@ -26,7 +26,7 @@ class CustomSliderMovie extends StatelessWidget {
     return SizedBox(
       child: CarouselSlider(
         options: CarouselOptions(
-          height: 220.sp,
+          height: 180.sp,
           viewportFraction: 0.92,
           autoPlay: true,
           autoPlayInterval: const Duration(seconds: 6),
@@ -67,7 +67,7 @@ class CustomSliderMovie extends StatelessWidget {
                           clipBehavior: Clip.hardEdge,
                           width: double.maxFinite,
                           decoration: BoxDecoration(
-                            color: ThemeConstants.clrBlue,
+                            color: ThemeConstants.clrTransparent,
                             borderRadius: BorderRadius.circular(16),
                           ),
                           child: CachedNetworkImage(
