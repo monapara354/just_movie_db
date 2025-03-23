@@ -9,12 +9,12 @@ This project is a starting point for a Flutter application.Use of Clean architec
 
 ## Screenshot
 
-![IMG-20250310-WA0022](https://github.com/user-attachments/assets/3fe1e378-b572-4afa-9160-faad2ddfac57)
+<img src="https://github.com/user-attachments/assets/3fe1e378-b572-4afa-9160-faad2ddfac57" alt="Description" width="400" height="800">
 
-![IMG-20250310-WA0021](https://github.com/user-attachments/assets/c9546865-b913-4c0f-a3dd-abd3442aa7b7)
+<img src="https://github.com/user-attachments/assets/c9546865-b913-4c0f-a3dd-abd3442aa7b7" alt="Description" width="400" height="800">
 
-![IMG-20250310-WA0025](https://github.com/user-attachments/assets/80d32f63-3406-46b1-8925-27e4ebca1129)
+<img src="https://github.com/user-attachments/assets/80d32f63-3406-46b1-8925-27e4ebca1129" alt="Description" width="400" height="800">
 
-![IMG-20250310-WA0023](https://github.com/user-attachments/assets/64f7409e-39f1-416c-a3d9-5e6c1c32d963)
+<img src="https://github.com/user-attachments/assets/64f7409e-39f1-416c-a3d9-5e6c1c32d963" alt="Description" width="400" height="800">
 
-![IMG-20250310-WA0024](https://github.com/user-attachments/assets/7cb3c7fd-86c7-458c-a6c4-a59250d440a4)
+<img src="https://github.com/user-attachments/assets/7cb3c7fd-86c7-458c-a6c4-a59250d440a4" alt="Description" width="400" height="800">
